@@ -22,6 +22,11 @@ public class Player : MonoBehaviour
     private bool doubleJump = false;
     private float verticalVelocity;//수직으로 받는 힘
 
+    [Header("어택")]
+    [SerializeField] Collider2D swordHitBox;
+    private bool isAttack = false;
+    private bool isAttacking = false;
+
     private void OnDrawGizmos()
     {
         if (polygonColider2D != null)
@@ -53,6 +58,9 @@ public class Player : MonoBehaviour
 
         jumping();
         checkGravity();
+
+        attack();
+        //attacking();
 
         doAnimation();
     }
@@ -146,6 +154,28 @@ public class Player : MonoBehaviour
 
         rigid.velocity = new Vector2 (rigid.velocity.x, verticalVelocity);
     }
+
+    /// <summary>
+    /// z키를 눌렀을 때 공격 활성
+    /// </summary>
+    private void attack()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            anim.SetTrigger("isAttacking");
+            //isAttack = true;
+        }
+    }
+
+    //private void attacking()
+    //{
+    //    if (isAttack == true)
+    //    {
+    //        isAttack = false;
+    //        isAttacking = true;
+    //    }
+    //}
+    
     /// <summary>
     /// 애니메이션 변수 전달 함수
     /// </summary>
@@ -153,5 +183,14 @@ public class Player : MonoBehaviour
     {
         anim.SetInteger("Horizontal", (int)moveDir.x);
         anim.SetBool("isGround", isGround);
+    }
+
+    public void EnableAttack()
+    {
+        swordHitBox.enabled = true;
+    }
+    public void DisableAttack()
+    {
+        swordHitBox.enabled = false;
     }
 }
