@@ -106,14 +106,14 @@ public class Player : MonoBehaviour
         {
             isJump = true;
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && isGround == false && isJump == false && isDoubleJump == true)
+        else if (Input.GetKeyDown(KeyCode.Space) && isGround == false && isJump == false && isDoubleJump == true)//스페이스바를 누르고 공중에 있고 점프 비활성화 더블 점프조건이 활성화
         {
-            doubleJump = true;
+            doubleJump = true;//더블점프 활성화
         }
     }
 
     /// <summary>
-    /// 중력 데이터로 수직으로 받는 힘을 조절하는 함수
+    /// 중력 데이터로 수직으로 받는 힘을 조절하는 함수(점프,더블점프)
     /// </summary>
     private void checkGravity()
     {
@@ -133,11 +133,11 @@ public class Player : MonoBehaviour
         if (isJump == true)//점프가 활성화 되었을 때
         {
             isJump = false;
-            isDoubleJump = true;
+            isDoubleJump = true;//더블점프 조건 활성화
             verticalVelocity = jumpForce;//점프 포스만큼 수직으로 받는 힘을 준다
         }
 
-        if (doubleJump == true)
+        if (doubleJump == true)//더블 점프가 활성화 되었을 때
         {
             doubleJump = false;
             isDoubleJump = false;
