@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     Vector3 moveDir;//default 0,0,0
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float jumpForce = 5.0f;
+    [SerializeField] float swordAttackPower = 1.0f;
 
     [Header("점프")]
     [SerializeField] float gravity = 9.81f;
@@ -24,8 +25,6 @@ public class Player : MonoBehaviour
 
     [Header("어택")]
     [SerializeField] Collider2D swordHitBox;
-    private bool isAttack = false;
-    private bool isAttacking = false;
 
     private void OnDrawGizmos()
     {
@@ -37,6 +36,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    public float SwordDamage()
+    {
+        return swordAttackPower;
+    }
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -166,6 +169,7 @@ public class Player : MonoBehaviour
             //isAttack = true;
         }
     }
+
 
     //private void attacking()
     //{
