@@ -10,12 +10,15 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float moveSpeed = 1.0f;
     private Rigidbody2D rigid;
     Animator anim;
-    private bool isEnemyLookAtLeft = false;
+    private bool isPlayerLookAtRight = false;
 
     [Header("≈œ ±‚¥…")]
     [SerializeField] private LayerMask ground;
     [SerializeField] private Collider2D wallCheckBox;
     [SerializeField] private Collider2D groundCheckBox;
+
+    [SerializeField] Transform player;
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -53,13 +56,13 @@ public class Enemy : MonoBehaviour
 
     private void checkDirection()
     {
-        if (gameObject.transform.localScale.x >= 1)
+        if (player.transform.localScale.x >= 1)
         {
-            isEnemyLookAtLeft = true;
+            isPlayerLookAtRight = true;
         }
-        else if (gameObject.transform.localScale.x <= -1)
+        else if (player.transform.localScale.x <= -1)
         {
-            isEnemyLookAtLeft = false;
+            isPlayerLookAtRight = false;
         }
     }
 
@@ -81,7 +84,8 @@ public class Enemy : MonoBehaviour
         hitPosition();
         if (curHp <= 0)
         {
-            Destroy(gameObject);
+            anim.SetTrigger("Death");
+            Destroy(gameObject,0.5f);
         }
     }
 
@@ -89,11 +93,14 @@ public class Enemy : MonoBehaviour
     {
         anim.SetTrigger("Hit");
         Vector3 position = transform.position;
-        if (isEnemyLookAtLeft == true)
+        if (isPlayerLookAtRight == true)
         {
-
+            position.x += 1;
         }
-        position.x += 1;
+        else
+        {
+            position.x -= 1;
+        }
         transform.position = position;
     }
 }
