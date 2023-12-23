@@ -13,7 +13,8 @@ public class Player : MonoBehaviour
     Vector3 moveDir;//default 0,0,0
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float jumpForce = 5.0f;
-    [SerializeField] float swordAttackPower = 1.0f;
+    [SerializeField] float maxHp = 10;
+    [SerializeField] float curHp = 0;
 
     [Header("점프")]
     [SerializeField] float gravity = 9.81f;
@@ -25,26 +26,22 @@ public class Player : MonoBehaviour
 
     [Header("어택")]
     [SerializeField] Collider2D swordHitBox;
+    [SerializeField] Collider2D bodyHitBox;
 
-    private void OnDrawGizmos()
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (polygonColider2D != null)
+        if (collision.gameObject.tag == GameTag.Enemy.ToString())
         {
-            Gizmos.color = Color.red;
-            Vector3 pos = polygonColider2D.bounds.center - new Vector3(0, 0.1f, 0);
-            Gizmos.DrawWireCube(pos, polygonColider2D.bounds.size);
+            hitPosition();
         }
-    }
-
-    public float SwordDamage()
-    {
-        return swordAttackPower;
     }
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         polygonColider2D = GetComponent<PolygonCollider2D>();
         anim = GetComponent<Animator>();
+        curHp = maxHp;
     }
 
     private void Start()
@@ -63,7 +60,7 @@ public class Player : MonoBehaviour
         checkGravity();
 
         attack();
-        //attacking();
+        bodyHit();
 
         doAnimation();
     }
@@ -170,6 +167,11 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void bodyHit()
+    {
+        Vector3 position = transform.position;
+    }
+
 
     //private void attacking()
     //{
@@ -179,7 +181,7 @@ public class Player : MonoBehaviour
     //        isAttacking = true;
     //    }
     //}
-    
+
     /// <summary>
     /// 애니메이션 변수 전달 함수
     /// </summary>
@@ -196,5 +198,19 @@ public class Player : MonoBehaviour
     public void DisableAttack()
     {
         swordHitBox.enabled = false;
+    }
+
+    public void Hit(float _damage)
+    {
+        curHp -= _damage;
+        if (curHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void hitPosition()
+    {
+        anim.SetTrigger("isPlayerHit");
     }
 }
