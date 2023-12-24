@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
     private Camera mainCam;
+    private GameManager gameManager;
 
     [Header("플레이어 데이터")]
     Rigidbody2D rigid;
@@ -15,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpForce = 5.0f;
     [SerializeField] float maxHp = 10;
     [SerializeField] float curHp = 0;
+    [SerializeField] Slider playerHp;
 
     [Header("점프")]
     [SerializeField] float gravity = 9.81f;
@@ -26,8 +29,7 @@ public class Player : MonoBehaviour
 
     [Header("어택")]
     [SerializeField] Collider2D swordHitBox;
-    [SerializeField] Collider2D bodyHitBox;
-
+    Enemy enemy;
 
     void Awake()
     {
@@ -35,11 +37,14 @@ public class Player : MonoBehaviour
         polygonColider2D = GetComponent<PolygonCollider2D>();
         anim = GetComponent<Animator>();
         curHp = maxHp;
+        playerHp.maxValue = maxHp;
     }
 
     private void Start()
     {
         mainCam = Camera.main;
+        enemy = GetComponent<Enemy>();
+        gameManager = GetComponent<GameManager>();
     }
 
     void Update()
@@ -129,7 +134,7 @@ public class Player : MonoBehaviour
         {
             verticalVelocity = 0.0f;//수직으로 받는 힘은 0이 된다.
         }
-        
+
         if (isJump == true)//점프가 활성화 되었을 때
         {
             isJump = false;
@@ -144,7 +149,7 @@ public class Player : MonoBehaviour
             verticalVelocity = jumpForce;
         }
 
-        rigid.velocity = new Vector2 (rigid.velocity.x, verticalVelocity);
+        rigid.velocity = new Vector2(rigid.velocity.x, verticalVelocity);
     }
 
     /// <summary>
@@ -158,30 +163,29 @@ public class Player : MonoBehaviour
             //isAttack = true;
         }
     }
-    private void hitPosition()
+    public void onDamage(Vector2 _pos)
     {
         Vector3 position = transform.position;
-        position.x += 1;
+        if (position.x >= _pos.x)
+        {
+            rigid.AddForce(new Vector2(-1, 1) * 7, ForceMode2D.Impulse);
+        }
+        else if (position.x <= _pos.x)
+        {
+            rigid.AddForce(new Vector2(1, 1) * 7, ForceMode2D.Impulse);
+        }
+
         anim.SetTrigger("isPlayerHit");
     }
     public void Hit(float _damage)
     {
         curHp -= _damage;
-        hitPosition();
+        playerHp.value = curHp;
         if (curHp <= 0)
         {
             Destroy(gameObject);
         }
     }
-
-    //private void attacking()
-    //{
-    //    if (isAttack == true)
-    //    {
-    //        isAttack = false;
-    //        isAttacking = true;
-    //    }
-    //}
 
     /// <summary>
     /// 애니메이션 변수 전달 함수

@@ -8,8 +8,8 @@ public class BodyHitBox : MonoBehaviour
     {
         if (collision.gameObject.tag == GameTag.Enemy.ToString())
         {
-            Debug.Log("플레이어가 닿았습니다.");
-            Player playerSc = collision.GetComponent<Player>();
+            Player playerSc = GetComponentInParent<Player>();
+            playerSc.onDamage(collision.transform.position);
             playerSc.Hit(1.0f);
         }
     }
