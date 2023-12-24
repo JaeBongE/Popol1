@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - SwordHitBox
+  - Ground
+  - BodyHitBox
   layers:
   - Default
   - TransparentFX
@@ -14,8 +17,8 @@ TagManager:
   - UI
   - Ground
   - Enemy
-  - 
-  - 
+  - SwordHitBox
+  - BodyHitBox
   - 
   - 
   - 

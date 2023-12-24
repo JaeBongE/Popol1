@@ -29,13 +29,6 @@ public class Player : MonoBehaviour
     [SerializeField] Collider2D bodyHitBox;
 
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == GameTag.Enemy.ToString())
-        {
-            hitPosition();
-        }
-    }
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -60,7 +53,6 @@ public class Player : MonoBehaviour
         checkGravity();
 
         attack();
-        bodyHit();
 
         doAnimation();
     }
@@ -166,12 +158,21 @@ public class Player : MonoBehaviour
             //isAttack = true;
         }
     }
-
-    private void bodyHit()
+    private void hitPosition()
     {
         Vector3 position = transform.position;
+        position.x += 1;
+        anim.SetTrigger("isPlayerHit");
     }
-
+    public void Hit(float _damage)
+    {
+        curHp -= _damage;
+        hitPosition();
+        if (curHp <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     //private void attacking()
     //{
@@ -200,17 +201,5 @@ public class Player : MonoBehaviour
         swordHitBox.enabled = false;
     }
 
-    public void Hit(float _damage)
-    {
-        curHp -= _damage;
-        if (curHp <= 0)
-        {
-            Destroy(gameObject);
-        }
-    }
 
-    private void hitPosition()
-    {
-        anim.SetTrigger("isPlayerHit");
-    }
 }
