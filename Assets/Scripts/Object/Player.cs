@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     private Camera mainCam;
-    private GameManager gameManager;
 
     [Header("플레이어 데이터")]
     Rigidbody2D rigid;
@@ -31,6 +30,7 @@ public class Player : MonoBehaviour
     [SerializeField] Collider2D swordHitBox;
     Enemy enemy;
 
+    private bool isPlayerDamaged = false;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -44,7 +44,6 @@ public class Player : MonoBehaviour
     {
         mainCam = Camera.main;
         enemy = GetComponent<Enemy>();
-        gameManager = GetComponent<GameManager>();
     }
 
     void Update()
@@ -56,7 +55,7 @@ public class Player : MonoBehaviour
 
         jumping();
         checkGravity();
-
+        heal();
         attack();
 
         doAnimation();
@@ -122,6 +121,7 @@ public class Player : MonoBehaviour
     /// </summary>
     private void checkGravity()
     {
+        
         if (isGround == false)//공중에 떠 있을 때
         {
             verticalVelocity -= gravity * Time.deltaTime;//수직으로 받는 힘이 gravity * Time.deltaTime만큼 줄어들고
@@ -160,11 +160,11 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             anim.SetTrigger("isAttacking");
-            //isAttack = true;
         }
     }
     public void onDamage(Vector2 _pos)
     {
+        rigid.velocity = new Vector3(0, 0, 0);
         Vector3 position = transform.position;
         if (position.x >= _pos.x)
         {
@@ -185,6 +185,7 @@ public class Player : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        isPlayerDamaged = false;
     }
 
     /// <summary>
@@ -205,5 +206,16 @@ public class Player : MonoBehaviour
         swordHitBox.enabled = false;
     }
 
-
+    private void heal()
+    {
+        if (Input.GetKeyDown(KeyCode.V))
+        {
+            curHp += 3;
+            if (curHp >= maxHp)
+            {
+                curHp = maxHp;
+            }
+            playerHp.value = curHp;
+        }
+    }
 }
