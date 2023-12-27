@@ -680,7 +680,6 @@ MonoBehaviour:
   ZskillCoolTime: 5
   ZskillCoolTimer: 5
   zCoolTime: {fileID: 2124583383}
-  playerHit: {fileID: 21300000, guid: 432e48af0c833ad4587d222b812b844f, type: 3}
 --- !u!212 &794898888
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8159,7 +8158,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

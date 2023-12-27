@@ -242,7 +242,6 @@ public class Player : MonoBehaviour
         {
             isZcoolTime = true;
             zCoolTime.enabled = true;
-            zCoolTime.fillAmount = ZskillCoolTime / ZskillCoolTimer;
             curHp += 3;
             if (curHp >= maxHp)
             {
@@ -264,6 +263,7 @@ public class Player : MonoBehaviour
         if (isZcoolTime == true && ZskillCoolTime > 0f)
         {
             ZskillCoolTime -= Time.deltaTime;
+            zCoolTime.fillAmount = ZskillCoolTime / ZskillCoolTimer;
             if (ZskillCoolTime <= 0f)
             {
                 ZskillCoolTime = 0f;
