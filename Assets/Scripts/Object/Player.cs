@@ -17,7 +17,6 @@ public class Player : MonoBehaviour
     [SerializeField] float maxHp = 10;
     [SerializeField] float curHp = 0;
     [SerializeField] Slider playerHp;
-    SpriteRenderer spr;
 
     [Header("점프")]
     [SerializeField] float gravity = 9.81f;
@@ -32,8 +31,8 @@ public class Player : MonoBehaviour
     Enemy enemy;
     [SerializeField] private float ZskillCoolTime = 5.0f;
     [SerializeField] private float ZskillCoolTimer = 5.0f;
+    private bool isZcoolTime = false;
     [SerializeField] Image zCoolTime;
-    [SerializeField] Sprite playerHit;
 
     float timerHit = 0.0f;
     float timerHitLimit = 0.5f;
@@ -46,7 +45,6 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         curHp = maxHp;
         playerHp.maxValue = maxHp;
-        spr = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -66,6 +64,7 @@ public class Player : MonoBehaviour
         jumping();
         checkGravity();
         heal();
+        healTimer();
         attack();
 
         doAnimation();
@@ -191,7 +190,6 @@ public class Player : MonoBehaviour
     public void onDamaged(Vector2 _pos)
     {
         //무적상태라면 return;
-        onDamagedSet();
         timerHit = timerHitLimit;
         rigid.velocity = Vector2.zero;
         verticalVelocity = 0.0f;
@@ -207,16 +205,6 @@ public class Player : MonoBehaviour
         verticalVelocity = rigid.velocity.y;
 
         anim.SetTrigger("isPlayerHit");
-    }
-
-    private void onDamagedSet()
-    {
-        spr.sprite = playerHit;
-    }
-
-    private void offDamagedSet()
-    {
-
     }
 
     public void Hit(float _damage)
@@ -250,12 +238,11 @@ public class Player : MonoBehaviour
 
     private void heal()
     {
-        healTimer();
-
-        if (Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V) && isZcoolTime == false)
         {
+            isZcoolTime = true;
             zCoolTime.enabled = true;
-            //zCoolTime.fillAmount = ZskillCoolTime / ZskillCoolTimer;
+            zCoolTime.fillAmount = ZskillCoolTime / ZskillCoolTimer;
             curHp += 3;
             if (curHp >= maxHp)
             {
@@ -274,16 +261,16 @@ public class Player : MonoBehaviour
 
     private void healTimer()
     {
-        if (ZskillCoolTime > 0f)
+        if (isZcoolTime == true && ZskillCoolTime > 0f)
         {
             ZskillCoolTime -= Time.deltaTime;
             if (ZskillCoolTime <= 0f)
             {
                 ZskillCoolTime = 0f;
+                isZcoolTime = false;
             }
         }
     }
-        //rigid.MoveRotation(Quaternion.LookRotation(rigid.velocity) * Quaternion.Euler(0, 0, -90f)); 이동하는 방향으로 포물선을 그려서 나가는 함수
 
     
 }
