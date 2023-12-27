@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     [SerializeField] float maxHp = 10;
     [SerializeField] float curHp = 0;
     [SerializeField] Slider playerHp;
+    SpriteRenderer spr;
 
     [Header("점프")]
     [SerializeField] float gravity = 9.81f;
@@ -29,6 +30,13 @@ public class Player : MonoBehaviour
     [Header("어택")]
     [SerializeField] Collider2D swordHitBox;
     Enemy enemy;
+    [SerializeField] private float ZskillCoolTime = 5.0f;
+    [SerializeField] private float ZskillCoolTimer = 5.0f;
+    [SerializeField] Image zCoolTime;
+    [SerializeField] Sprite playerHit;
+
+    float timerHit = 0.0f;
+    float timerHitLimit = 0.5f;
 
     private bool isPlayerDamaged = false;
     void Awake()
@@ -38,6 +46,7 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         curHp = maxHp;
         playerHp.maxValue = maxHp;
+        spr = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
@@ -49,6 +58,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         checkGround();
+        checkTimer();
 
         moving();
         turning();
@@ -79,11 +89,27 @@ public class Player : MonoBehaviour
             isGround = true;
         }
     }
+    private void checkTimer()
+    {
+        if (timerHit > 0.0f)
+        {
+            timerHit -= Time.deltaTime;
+            if(timerHit < 0.0f)
+            {
+                timerHit = 0.0f;
+            }
+        }
+    }
+
+
     /// <summary>
     /// horizontal을 입력했을 때 플레이어 이동함수
     /// </summary>
     private void moving()
     {
+        if (timerHit > 0.0f)
+            return;
+
         moveDir.x = Input.GetAxisRaw("Horizontal") * moveSpeed;//-1 0 1
         moveDir.y = rigid.velocity.y;
         rigid.velocity = moveDir;
@@ -121,7 +147,6 @@ public class Player : MonoBehaviour
     /// </summary>
     private void checkGravity()
     {
-        
         if (isGround == false)//공중에 떠 있을 때
         {
             verticalVelocity -= gravity * Time.deltaTime;//수직으로 받는 힘이 gravity * Time.deltaTime만큼 줄어들고
@@ -162,21 +187,38 @@ public class Player : MonoBehaviour
             anim.SetTrigger("isAttacking");
         }
     }
-    public void onDamage(Vector2 _pos)
+
+    public void onDamaged(Vector2 _pos)
     {
-        rigid.velocity = new Vector3(0, 0, 0);
+        //무적상태라면 return;
+        onDamagedSet();
+        timerHit = timerHitLimit;
+        rigid.velocity = Vector2.zero;
+        verticalVelocity = 0.0f;
         Vector3 position = transform.position;
-        if (position.x >= _pos.x)
+        if (position.x > _pos.x)
         {
-            rigid.AddForce(new Vector2(-1, 1) * 7, ForceMode2D.Impulse);
+            rigid.AddForce(new Vector2(2, 1) * 3, ForceMode2D.Impulse);
         }
         else if (position.x <= _pos.x)
         {
-            rigid.AddForce(new Vector2(1, 1) * 7, ForceMode2D.Impulse);
+            rigid.AddForce(new Vector2(-2, 1) * 3, ForceMode2D.Impulse);
         }
+        verticalVelocity = rigid.velocity.y;
 
         anim.SetTrigger("isPlayerHit");
     }
+
+    private void onDamagedSet()
+    {
+        spr.sprite = playerHit;
+    }
+
+    private void offDamagedSet()
+    {
+
+    }
+
     public void Hit(float _damage)
     {
         curHp -= _damage;
@@ -208,8 +250,12 @@ public class Player : MonoBehaviour
 
     private void heal()
     {
+        healTimer();
+
         if (Input.GetKeyDown(KeyCode.V))
         {
+            zCoolTime.enabled = true;
+            //zCoolTime.fillAmount = ZskillCoolTime / ZskillCoolTimer;
             curHp += 3;
             if (curHp >= maxHp)
             {
@@ -217,5 +263,27 @@ public class Player : MonoBehaviour
             }
             playerHp.value = curHp;
         }
+
+        if (ZskillCoolTime == 0f)
+        {
+            zCoolTime.enabled = false;
+            ZskillCoolTime = ZskillCoolTimer;
+        }
+
     }
+
+    private void healTimer()
+    {
+        if (ZskillCoolTime > 0f)
+        {
+            ZskillCoolTime -= Time.deltaTime;
+            if (ZskillCoolTime <= 0f)
+            {
+                ZskillCoolTime = 0f;
+            }
+        }
+    }
+        //rigid.MoveRotation(Quaternion.LookRotation(rigid.velocity) * Quaternion.Euler(0, 0, -90f)); 이동하는 방향으로 포물선을 그려서 나가는 함수
+
+    
 }
