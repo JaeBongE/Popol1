@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -33,11 +34,11 @@ public class Player : MonoBehaviour
     [SerializeField] private float ZskillCoolTimer = 5.0f;
     private bool isZcoolTime = false;
     [SerializeField] Image zCoolTime;
+    [SerializeField] TMP_Text zCoolTimeText;
 
     float timerHit = 0.0f;
     float timerHitLimit = 0.5f;
 
-    private bool isPlayerDamaged = false;
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -51,6 +52,7 @@ public class Player : MonoBehaviour
     {
         mainCam = Camera.main;
         enemy = GetComponent<Enemy>();
+        zCoolTime.enabled = false;
     }
 
     void Update()
@@ -187,6 +189,10 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// _pos의 적이 닿았다면 player가 뒤로 날아가며 애니메이션이 작동함
+    /// </summary>
+    /// <param name="_pos"> 적</param>
     public void onDamaged(Vector2 _pos)
     {
         //무적상태라면 return;
@@ -194,28 +200,33 @@ public class Player : MonoBehaviour
         rigid.velocity = Vector2.zero;
         verticalVelocity = 0.0f;
         Vector3 position = transform.position;
-        if (position.x > _pos.x)
+        if (position.x > _pos.x)//닿은 상대가 player보다 왼쪽에 있다면
         {
-            rigid.AddForce(new Vector2(2, 1) * 3, ForceMode2D.Impulse);
+            rigid.AddForce(new Vector2(2, 1) * 2, ForceMode2D.Impulse);//오른쪽으로 날아감
         }
-        else if (position.x <= _pos.x)
+        else if (position.x <= _pos.x)//오른쪽에 있다면
         {
-            rigid.AddForce(new Vector2(-2, 1) * 3, ForceMode2D.Impulse);
+            rigid.AddForce(new Vector2(-2, 1) * 2, ForceMode2D.Impulse);//왼쪽으로 날아감
         }
         verticalVelocity = rigid.velocity.y;
 
-        anim.SetTrigger("isPlayerHit");
+        anim.SetTrigger("isPlayerHit");//hit애니메이션 작동
     }
 
+    /// <summary>
+    /// player가 데미지를 입는 함수
+    /// </summary>
+    /// <param name="_damage"></param>
     public void Hit(float _damage)
     {
-        curHp -= _damage;
+        curHp -= _damage;//hp가 _damage만큼 감소
         playerHp.value = curHp;
-        if (curHp <= 0)
+        if (curHp <= 0)//플레이어가 죽는 경우
         {
-            Destroy(gameObject);
+            Debug.Log("플레이어가 죽었습니다");
+            anim.SetTrigger("isPlayerDeath");
+            GameManager.Instance.GameOver();
         }
-        isPlayerDamaged = false;
     }
 
     /// <summary>
@@ -264,6 +275,7 @@ public class Player : MonoBehaviour
         {
             ZskillCoolTime -= Time.deltaTime;
             zCoolTime.fillAmount = ZskillCoolTime / ZskillCoolTimer;
+            zCoolTimeText.text = ($"{ZskillCoolTime}");
             if (ZskillCoolTime <= 0f)
             {
                 ZskillCoolTime = 0f;
