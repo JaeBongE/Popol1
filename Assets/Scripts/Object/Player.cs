@@ -249,6 +249,8 @@ public class Player : MonoBehaviour
 
     private void heal()
     {
+        if (curHp == maxHp) return;
+        
         if (Input.GetKeyDown(KeyCode.V) && isZcoolTime == false)
         {
             isZcoolTime = true;
@@ -275,10 +277,11 @@ public class Player : MonoBehaviour
         {
             ZskillCoolTime -= Time.deltaTime;
             zCoolTime.fillAmount = ZskillCoolTime / ZskillCoolTimer;
-            zCoolTimeText.text = ($"{ZskillCoolTime}");
+            zCoolTimeText.text = ($"{(int)ZskillCoolTime}");
             if (ZskillCoolTime <= 0f)
             {
                 ZskillCoolTime = 0f;
+                zCoolTimeText.text = "";
                 isZcoolTime = false;
             }
         }
