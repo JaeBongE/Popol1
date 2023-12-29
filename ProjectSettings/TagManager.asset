@@ -8,6 +8,7 @@ TagManager:
   - SwordHitBox
   - Ground
   - BodyHitBox
+  - Potal
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - BodyHitBox
   - PlayerHit
   - EnemyBody
-  - 
+  - Potal
   - 
   - 
   - 

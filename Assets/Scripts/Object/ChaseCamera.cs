@@ -4,7 +4,17 @@ using UnityEngine;
 
 public class ChaseCamera : MonoBehaviour
 {
-    [SerializeField] GameObject objPlayer;
+    GameObject objPlayer;
+
+    private void Awake()
+    {
+        objPlayer = GameObject.Find("Player");
+    }
+
+    private void Start()
+    {
+        
+    }
 
     void Update()
     {

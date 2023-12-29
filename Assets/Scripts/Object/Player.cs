@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
+using static GameManager;
 
 public class Player : MonoBehaviour
 {
@@ -17,7 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField] float jumpForce = 5.0f;
     [SerializeField] float maxHp = 10;
     [SerializeField] float curHp = 0;
-    [SerializeField] Slider playerHp;
+    Slider playerHp;
 
     [Header("점프")]
     [SerializeField] float gravity = 9.81f;
@@ -30,14 +32,22 @@ public class Player : MonoBehaviour
     [Header("어택")]
     [SerializeField] Collider2D swordHitBox;
     Enemy enemy;
-    [SerializeField] private float ZskillCoolTime = 5.0f;
-    [SerializeField] private float ZskillCoolTimer = 5.0f;
-    private bool isZcoolTime = false;
-    [SerializeField] Image zCoolTime;
-    [SerializeField] TMP_Text zCoolTimeText;
+    [SerializeField] private float VskillCoolTime = 5.0f;
+    private float VskillCoolTimer = 5.0f;
+    private bool isVcoolTime = false;
+    Image vCoolTime;
+    TMP_Text vCoolTimeText;
 
     float timerHit = 0.0f;
     float timerHitLimit = 0.5f;
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == GameTag.Potal.ToString())
+    //    {
+    //        Debug.Log("다음 스테이지 이동");
+    //    }
+    //}
 
     void Awake()
     {
@@ -45,18 +55,19 @@ public class Player : MonoBehaviour
         polygonColider2D = GetComponent<PolygonCollider2D>();
         anim = GetComponent<Animator>();
         curHp = maxHp;
-        playerHp.maxValue = maxHp;
+        
     }
 
     private void Start()
     {
         mainCam = Camera.main;
         enemy = GetComponent<Enemy>();
-        zCoolTime.enabled = false;
+        //zCoolTime.enabled = false;
     }
 
     void Update()
     {
+        checkPlayerUI();
         checkGround();
         checkTimer();
 
@@ -65,13 +76,53 @@ public class Player : MonoBehaviour
 
         jumping();
         checkGravity();
+        attack();
         heal();
         healTimer();
-        attack();
 
         doAnimation();
+        NextStage();
     }
 
+    private void checkPlayerUI()
+    {
+        if (playerHp == null)
+        {
+            GameObject objPlayerUI = GameObject.Find("PlayerUI");
+
+            PlayerUI scUI = GetComponent<PlayerUI>();
+            //(Image _VcoolTime, Slider _PlayerHp, TMP_Text _VCoolTimeText) data = scUI.GetProperty();
+
+            //var data2 = scUI.GetProperty();
+            playerHp = scUI.GetPlayerHp();
+            (Image _vCoolTime, TMP_Text _vCoolTimeText) VskillData = scUI.GetVskill();
+            vCoolTime = VskillData._vCoolTime;
+            vCoolTimeText = VskillData._vCoolTimeText;
+            //playerHp = data._PlayerHp;
+            //vCoolTime = data._VcoolTime;
+            //vCoolTimeText = data._VCoolTimeText;
+            playerHp.maxValue = maxHp;
+            vCoolTime.fillAmount = 0f;
+
+            //vCoolTime = scUI.GetImage();
+        }
+
+
+
+        //if (playerHp == null)
+        //{
+        //    GameObject objCanvas = GameObject.Find("Canvas");
+
+            //    if (objCanvas == null)
+            //    {
+            //        return;
+            //    }
+
+            //    GameObject objPlayerHp = objCanvas.transform.Find("PlayerIcon/PlayerHp").gameObject;
+            //    playerHp = objPlayerHp.GetComponent<Slider>();
+
+            //}
+    }
     /// <summary>
     /// 플레이어가 땅에 닿아 있는지 체크하는 함수
     /// </summary>
@@ -90,6 +141,7 @@ public class Player : MonoBehaviour
             isGround = true;
         }
     }
+
     private void checkTimer()
     {
         if (timerHit > 0.0f)
@@ -101,7 +153,6 @@ public class Player : MonoBehaviour
             }
         }
     }
-
 
     /// <summary>
     /// horizontal을 입력했을 때 플레이어 이동함수
@@ -189,6 +240,56 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void heal()
+    {
+        if (curHp == maxHp) return;
+        
+        if (Input.GetKeyDown(KeyCode.V) && isVcoolTime == false)
+        {
+            isVcoolTime = true;
+            //zCoolTime.enabled = true;
+            curHp += 3;
+            if (curHp >= maxHp)
+            {
+                curHp = maxHp;
+            }
+            playerHp.value = curHp;
+        }
+
+        if (VskillCoolTime == 0f)
+        {
+            //zCoolTime.enabled = false;
+            VskillCoolTime = VskillCoolTimer;
+        }
+
+    }
+
+    private void healTimer()
+    {
+        if (isVcoolTime == true && VskillCoolTime > 0f)
+        {
+            VskillCoolTime -= Time.deltaTime;
+            vCoolTime.fillAmount = VskillCoolTime / VskillCoolTimer;
+            //zCoolTimeText.text = ($"{Mathf.Floor(ZskillCoolTime * 10f) / 10f}");
+            vCoolTimeText.text = ($"{VskillCoolTime.ToString("F1")}");
+            if (VskillCoolTime <= 0f)
+            {
+                VskillCoolTime = 0f;
+                vCoolTimeText.text = "";
+                isVcoolTime = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 애니메이션 변수 전달 함수
+    /// </summary>
+    private void doAnimation()
+    {
+        anim.SetInteger("Horizontal", (int)moveDir.x);//좌우 이동 애니메이션
+        anim.SetBool("isGround", isGround);//땅에 닿았는지 체크해서 닿지 않으면 점프 애니메이션
+    }
+
     /// <summary>
     /// _pos의 적이 닿았다면 player가 뒤로 날아가며 애니메이션이 작동함
     /// </summary>
@@ -224,68 +325,31 @@ public class Player : MonoBehaviour
         if (curHp <= 0)//플레이어가 죽는 경우
         {
             Debug.Log("플레이어가 죽었습니다");
-            anim.SetTrigger("isPlayerDeath");
-            GameManager.Instance.GameOver();
+            anim.SetTrigger("isPlayerDeath");//플레이어 사망 애니메이션 
+            GameManager.Instance.GameOver();//게임오버 메뉴가 나온다
         }
     }
 
     /// <summary>
-    /// 애니메이션 변수 전달 함수
+    /// 플레이어가 어택 했을 때 소드 히트박스가 생기게 해주는 함수
     /// </summary>
-    private void doAnimation()
-    {
-        anim.SetInteger("Horizontal", (int)moveDir.x);
-        anim.SetBool("isGround", isGround);
-    }
-
     public void EnableAttack()
     {
         swordHitBox.enabled = true;
     }
+    /// <summary>
+    /// 공격이 끝난 후 소드 히트박스를 없애주는 함수
+    /// </summary>
     public void DisableAttack()
     {
         swordHitBox.enabled = false;
     }
 
-    private void heal()
+    public void NextStage()
     {
-        if (curHp == maxHp) return;
-        
-        if (Input.GetKeyDown(KeyCode.V) && isZcoolTime == false)
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            isZcoolTime = true;
-            zCoolTime.enabled = true;
-            curHp += 3;
-            if (curHp >= maxHp)
-            {
-                curHp = maxHp;
-            }
-            playerHp.value = curHp;
-        }
-
-        if (ZskillCoolTime == 0f)
-        {
-            zCoolTime.enabled = false;
-            ZskillCoolTime = ZskillCoolTimer;
-        }
-
-    }
-
-    private void healTimer()
-    {
-        if (isZcoolTime == true && ZskillCoolTime > 0f)
-        {
-            ZskillCoolTime -= Time.deltaTime;
-            zCoolTime.fillAmount = ZskillCoolTime / ZskillCoolTimer;
-            zCoolTimeText.text = ($"{(int)ZskillCoolTime}");
-            if (ZskillCoolTime <= 0f)
-            {
-                ZskillCoolTime = 0f;
-                zCoolTimeText.text = "";
-                isZcoolTime = false;
-            }
+            SceneManager.LoadSceneAsync((int)enumScene.Stage2);
         }
     }
-
-    
 }

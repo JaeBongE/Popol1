@@ -12,5 +12,11 @@ public class BodyHitBox : MonoBehaviour
             playerSc.onDamaged(collision.gameObject.transform.position);
             playerSc.Hit(1.0f);
         }
+        if (collision.gameObject.tag == GameTag.Potal.ToString())
+        {
+            Player playerSc = GetComponentInParent<Player>();
+            playerSc.NextStage();
+        }
     }
+
 }

@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public enum enumScene
     {
         Stage1,
+        Stage2,
     }
 
     [SerializeField] GameObject gameOverMenu;
