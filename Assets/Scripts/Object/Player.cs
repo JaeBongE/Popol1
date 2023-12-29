@@ -17,7 +17,7 @@ public class Player : MonoBehaviour
     Vector3 moveDir;//default 0,0,0
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float jumpForce = 5.0f;
-    [SerializeField] float maxHp = 10;
+    float maxHp = 10;
     [SerializeField] float curHp = 0;
     Slider playerHp;
 
@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     [Header("어택")]
     [SerializeField] Collider2D swordHitBox;
     Enemy enemy;
-    [SerializeField] private float VskillCoolTime = 5.0f;
+    private float VskillCoolTime = 5.0f;
     private float VskillCoolTimer = 5.0f;
     private bool isVcoolTime = false;
     Image vCoolTime;
@@ -86,11 +86,16 @@ public class Player : MonoBehaviour
 
     private void checkPlayerUI()
     {
-        if (playerHp == null)
+        if (playerHp == null)//UI에서 데이터를 가져 오는 조건
         {
             GameObject objPlayerUI = GameObject.Find("PlayerUI");
 
-            PlayerUI scUI = GetComponent<PlayerUI>();
+            if (objPlayerUI == null)
+            { 
+                return;
+            }
+
+            PlayerUI scUI = objPlayerUI.GetComponent<PlayerUI>();
             //(Image _VcoolTime, Slider _PlayerHp, TMP_Text _VCoolTimeText) data = scUI.GetProperty();
 
             //var data2 = scUI.GetProperty();
@@ -113,15 +118,15 @@ public class Player : MonoBehaviour
         //{
         //    GameObject objCanvas = GameObject.Find("Canvas");
 
-            //    if (objCanvas == null)
-            //    {
-            //        return;
-            //    }
+        //    if (objCanvas == null)
+        //    {
+        //        return;
+        //    }
 
-            //    GameObject objPlayerHp = objCanvas.transform.Find("PlayerIcon/PlayerHp").gameObject;
-            //    playerHp = objPlayerHp.GetComponent<Slider>();
+        //    GameObject objPlayerHp = objCanvas.transform.Find("PlayerIcon/PlayerHp").gameObject;
+        //    playerHp = objPlayerHp.GetComponent<Slider>();
 
-            //}
+        //}
     }
     /// <summary>
     /// 플레이어가 땅에 닿아 있는지 체크하는 함수
