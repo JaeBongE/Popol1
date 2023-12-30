@@ -331,7 +331,7 @@ public class Player : MonoBehaviour
         {
             Debug.Log("플레이어가 죽었습니다");
             anim.SetTrigger("isPlayerDeath");//플레이어 사망 애니메이션 
-            GameManager.Instance.GameOver();//게임오버 메뉴가 나온다
+            //GameManager.Instance.GameOver();//게임오버 메뉴가 나온다
         }
     }
 

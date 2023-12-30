@@ -16,9 +16,12 @@ public class GameManager : MonoBehaviour
         Stage2,
     }
 
-    [SerializeField] GameObject gameOverMenu;
-    [SerializeField] Button retryButton;
-    [SerializeField] Button exitButton;
+    GameObject gameOverMenu;
+    Button retryButton;
+    Button exitButton;
+
+    Slider playerHp;
+
     private void Awake()
     {
         if (Instance == null)
@@ -29,31 +32,80 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
         }
-        gameOverMenu.SetActive(false);
-        retryButton.onClick.AddListener(() =>
+        //        gameOverMenu.SetActive(false);
+        //        retryButton.onClick.AddListener(() =>
+        //        {
+        //            SceneManager.LoadSceneAsync((int)enumScene.Stage1);
+        //            Time.timeScale = 1f;
+        //        });
+        //        exitButton.onClick.AddListener(() =>
+        //        {
+        //#if UNITY_EDITOR
+        //            UnityEditor.EditorApplication.isPlaying = false;
+        //#else
+        //            Application.Quit();
+        //#endif
+        //        });
+    }
+
+    private void Update()
+    {
+        setGameOverMenu();
+        getPlayerHp();
+        //GameOver();
+    }
+
+    private void setGameOverMenu()
+    {
+        if (gameOverMenu == null)
         {
-            SceneManager.LoadSceneAsync((int)enumScene.Stage1);
-            Time.timeScale = 1f;
-        });
-        exitButton.onClick.AddListener(() =>
-        {
+            GameObject objGameOverMenu = GameObject.Find("GameOverMenu");
+            if (objGameOverMenu == null) return;
+
+            GameOverMenu scGameOverMenu = objGameOverMenu.GetComponent<GameOverMenu>();
+            gameOverMenu = scGameOverMenu.ShowGameOverMenu();
+            (Button _retryButton, Button _exitButton) gameOverButton = scGameOverMenu.ShowGameOverButton();
+            retryButton = gameOverButton._retryButton;
+            exitButton = gameOverButton._exitButton;
+
+            gameOverMenu.SetActive(false);
+            retryButton.onClick.AddListener(() =>
+            {
+                SceneManager.LoadSceneAsync((int)enumScene.Stage1);
+                Time.timeScale = 1f;
+            });
+            exitButton.onClick.AddListener(() =>
+            {
 #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
+                UnityEditor.EditorApplication.isPlaying = false;
 #else
             Application.Quit();
 #endif
-        });
-    }
+            });
+        }
 
-    private void Start()
+        if (playerHp.value <= 0)
+        {
+            GameOver();
+        }
+    }
+    private void getPlayerHp()
     {
+        if (playerHp == null)
+        {
+            GameObject objPlayerUI = GameObject.Find("PlayerUI");
+            if (objPlayerUI == null) return;
+            PlayerUI scUI = objPlayerUI.GetComponent<PlayerUI>();
+            playerHp = scUI.GetPlayerHp();
+        }
+
     }
 
-
-    public void GameOver()
+    private void GameOver()
     {
         gameOverMenu.SetActive(true);
         Invoke("stopGame", 0.85f);
+
     }
 
     private void stopGame()
