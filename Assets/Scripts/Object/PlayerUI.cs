@@ -10,6 +10,10 @@ public class PlayerUI : MonoBehaviour
     [Header("힐")]
     [SerializeField] Image vCoolTime;
     [SerializeField] TMP_Text vCoolTimeText;
+    [Header("게임오버메뉴")]
+    [SerializeField] GameObject gameOverMenu;
+    [SerializeField] Button retryButton;
+    [SerializeField] Button exitButton;
 
     //public (Image _VcoolTime, Slider _PlayerHp, TMP_Text _VCoolTimeText) GetProperty()
     //{
@@ -24,5 +28,15 @@ public class PlayerUI : MonoBehaviour
     public (Image _vCoolTime, TMP_Text _vCoolTimeText) GetVskill()
     {
         return (vCoolTime, vCoolTimeText);
+    }
+
+    public GameObject ShowGameOverMenu()
+    {
+        return gameOverMenu;
+    }
+
+    public (Button _retryButton, Button _exitButton) ShowGameOverButton()
+    {
+        return (retryButton, exitButton);
     }
 }

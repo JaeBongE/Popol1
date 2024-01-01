@@ -59,12 +59,12 @@ public class GameManager : MonoBehaviour
     {
         if (gameOverMenu == null)
         {
-            GameObject objGameOverMenu = GameObject.Find("GameOverMenu");
-            if (objGameOverMenu == null) return;
+            GameObject objPlayerUI = GameObject.Find("PlayerUI");
+            if (objPlayerUI == null) return;
 
-            GameOverMenu scGameOverMenu = objGameOverMenu.GetComponent<GameOverMenu>();
-            gameOverMenu = scGameOverMenu.ShowGameOverMenu();
-            (Button _retryButton, Button _exitButton) gameOverButton = scGameOverMenu.ShowGameOverButton();
+            PlayerUI scUI = objPlayerUI.GetComponent<PlayerUI>();
+            gameOverMenu = scUI.ShowGameOverMenu();
+            (Button _retryButton, Button _exitButton) gameOverButton = scUI.ShowGameOverButton();
             retryButton = gameOverButton._retryButton;
             exitButton = gameOverButton._exitButton;
 
@@ -84,10 +84,6 @@ public class GameManager : MonoBehaviour
             });
         }
 
-        if (playerHp.value <= 0)
-        {
-            GameOver();
-        }
     }
     private void getPlayerHp()
     {
@@ -98,7 +94,10 @@ public class GameManager : MonoBehaviour
             PlayerUI scUI = objPlayerUI.GetComponent<PlayerUI>();
             playerHp = scUI.GetPlayerHp();
         }
-
+        if (playerHp.value <= 0)
+        {
+            GameOver();
+        }
     }
 
     private void GameOver()

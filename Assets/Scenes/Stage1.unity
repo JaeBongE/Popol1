@@ -154,6 +154,9 @@ MonoBehaviour:
   playerHp: {fileID: 714662127}
   vCoolTime: {fileID: 2124583383}
   vCoolTimeText: {fileID: 6251726}
+  gameOverMenu: {fileID: 1587389468}
+  retryButton: {fileID: 1201129575}
+  exitButton: {fileID: 1206018374}
 --- !u!1 &185628861
 GameObject:
   m_ObjectHideFlags: 0
@@ -6265,21 +6268,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 9189783427192583827, guid: 9ac26d4947ac0ba488d722936a6d56f7, type: 3}
   m_PrefabInstance: {fileID: 7402395124184763942}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1587389469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1587389468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c179bee8c469634aabf8cb7bb7258e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameOverMenu: {fileID: 1587389468}
-  retryButton: {fileID: 1201129575}
-  exitButton: {fileID: 1206018374}
 --- !u!1 &1609183998
 GameObject:
   m_ObjectHideFlags: 0
@@ -7276,7 +7264,4 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 738999140584676060, guid: 9ac26d4947ac0ba488d722936a6d56f7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 111099917}
-    - targetCorrespondingSourceObject: {fileID: 9189783427192583827, guid: 9ac26d4947ac0ba488d722936a6d56f7, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1587389469}
   m_SourcePrefab: {fileID: 100100000, guid: 9ac26d4947ac0ba488d722936a6d56f7, type: 3}
