@@ -28,8 +28,18 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        checkPlayer();
         moving();
         checkDirection();
+    }
+
+    private void checkPlayer()
+    {
+        if (player == null)
+        {
+            GameObject objPlayer = GameObject.Find("Player");
+            player = objPlayer.transform;
+        }
     }
 
     private void FixedUpdate()

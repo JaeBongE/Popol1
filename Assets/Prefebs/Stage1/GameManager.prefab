@@ -44,6 +44,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5022edc0bf4f72343bf7cb34754544ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverMenu: {fileID: 0}
-  retryButton: {fileID: 0}
-  exitButton: {fileID: 0}

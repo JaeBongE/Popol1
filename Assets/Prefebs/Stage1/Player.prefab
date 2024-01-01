@@ -104,15 +104,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 5
-  maxHp: 10
   curHp: 0
-  playerHp: {fileID: 0}
   gravity: 9.81
   isGround: 0
   swordHitBox: {fileID: 1673915675679305722}
-  ZskillCoolTime: 5
-  zCoolTime: {fileID: 0}
-  zCoolTimeText: {fileID: 0}
 --- !u!50 &6910776789803687209
 Rigidbody2D:
   serializedVersion: 4
