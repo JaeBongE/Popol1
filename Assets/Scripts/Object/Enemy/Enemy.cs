@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private float maxHp = 3.0f;
     private float curHp = 0f;
     [SerializeField] private float moveSpeed = 1.0f;
+    private float defaultSpeed;
     private Rigidbody2D rigid;
     Animator anim;
     private bool isPlayerLookAtRight = false;
@@ -17,13 +18,25 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Collider2D wallCheckBox;
     [SerializeField] private Collider2D groundCheckBox;
 
-    [SerializeField] Transform player;
+    Transform player;
+
+    [Header("Àû °ø°Ý")]
+    [SerializeField] private Collider2D attackHitBox;
+
+
+    public enum enumEnemyType
+    {
+        FlyingEye,
+        Skeleton,
+    }
+    public enumEnemyType enemyType;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         curHp = maxHp;
         anim = GetComponent<Animator>();
+        defaultSpeed = moveSpeed;
     }
 
     void Update()
@@ -53,7 +66,7 @@ public class Enemy : MonoBehaviour
         {
             turning();
         }
-        
+
     }
 
     /// <summary>
@@ -92,16 +105,31 @@ public class Enemy : MonoBehaviour
     {
         curHp -= _damage;
         hitPosition();
-        if (curHp <= 0)
+        if (curHp <= 0 && enemyType == enumEnemyType.FlyingEye)
         {
             anim.SetTrigger("Death");
-            Destroy(gameObject,0.5f);
+            Destroy(gameObject, 0.5f);
+        }
+
+        if (curHp <= 0 && enemyType == enumEnemyType.Skeleton)
+        {
+            anim.SetTrigger("Death2");
+            Destroy(gameObject, 0.5f);
         }
     }
 
     private void hitPosition()
     {
-        anim.SetTrigger("Hit");
+        if (enemyType == enumEnemyType.FlyingEye)
+        {
+            anim.SetTrigger("Hit");
+        }
+
+        if (enemyType == enumEnemyType.Skeleton)
+        {
+            anim.SetTrigger("Hit2");
+        }
+
         Vector3 position = transform.position;
         if (isPlayerLookAtRight == true)
         {
@@ -112,5 +140,38 @@ public class Enemy : MonoBehaviour
             position.x -= 1;
         }
         transform.position = position;
+    }
+
+    public void Attack()
+    {
+        if (enemyType == enumEnemyType.Skeleton)
+        {
+            moveSpeed = 0f;
+            anim.SetTrigger("Attack");
+            Invoke("reMove", 0.8f);
+        }
+    }
+
+    private void reMove()
+    {
+        Vector3 scale = gameObject.transform.localScale;
+        if (scale.x >= 1)
+        {
+            moveSpeed = defaultSpeed;
+        }
+        else if (scale.x <= 1)
+        {
+            moveSpeed = -defaultSpeed;
+        }
+    }
+
+    public void EnableAttack()
+    {
+        attackHitBox.enabled = true;
+    }
+
+    public void DisableAttack()
+    {
+        attackHitBox.enabled = false;
     }
 }
