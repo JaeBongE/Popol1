@@ -37,6 +37,11 @@ public class Player : MonoBehaviour
     private bool isVcoolTime = false;
     Image vCoolTime;
     TMP_Text vCoolTimeText;
+    private float XskillCoolTime = 5.0f;
+    private float XskillCoolTimer = 5.0f;
+    private bool isXcoolTime = false;
+    Image xCoolTime;
+    TMP_Text xCoolTimeText;
 
     float timerHit = 0.0f;
     float timerHitLimit = 0.5f;
@@ -76,7 +81,12 @@ public class Player : MonoBehaviour
 
         jumping();
         checkGravity();
+
         attack();
+
+        dash();
+        dashTimer();
+
         heal();
         healTimer();
 
@@ -110,6 +120,12 @@ public class Player : MonoBehaviour
             vCoolTime.fillAmount = 0f;
 
             //vCoolTime = scUI.GetImage();
+
+            (Image _xCoolTime, TMP_Text _xCoolTimeText) XskillData = scUI.GetXskill();
+            xCoolTime = XskillData._xCoolTime;
+            xCoolTimeText = XskillData._xCoolTimeText;
+            xCoolTime.fillAmount = 0f;
+
         }
 
 
@@ -282,6 +298,35 @@ public class Player : MonoBehaviour
                 VskillCoolTime = 0f;
                 vCoolTimeText.text = "";
                 isVcoolTime = false;
+            }
+        }
+    }
+
+    private void dash()
+    {
+        if (Input.GetKeyDown(KeyCode.X) && isXcoolTime == false)
+        {
+            isXcoolTime = true;
+        }
+
+        if (XskillCoolTime == 0f)
+        {
+            XskillCoolTime = XskillCoolTimer;
+        }
+    }
+
+    private void dashTimer()
+    {
+        if (isXcoolTime == true && XskillCoolTimer > 0f)
+        {
+            XskillCoolTime -= Time.deltaTime;
+            xCoolTime.fillAmount = XskillCoolTime / XskillCoolTimer;
+            xCoolTimeText.text = ($"{XskillCoolTime.ToString("F1")}");
+            if (XskillCoolTime <= 0f)
+            {
+                XskillCoolTime = 0f;
+                xCoolTimeText.text = "";
+                isXcoolTime = false;
             }
         }
     }

@@ -7,6 +7,9 @@ using TMPro;
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] Slider playerHp;
+    [Header("´ë½¬")]
+    [SerializeField] Image xCoolTime;
+    [SerializeField] TMP_Text xCoolTimeText;
     [Header("Èú")]
     [SerializeField] Image vCoolTime;
     [SerializeField] TMP_Text vCoolTimeText;
@@ -25,10 +28,16 @@ public class PlayerUI : MonoBehaviour
         return playerHp;
     }
 
+    public (Image _xCoolTime, TMP_Text _xCoolTimeText) GetXskill()
+    {
+        return (xCoolTime, xCoolTimeText);
+    }
+
     public (Image _vCoolTime, TMP_Text _vCoolTimeText) GetVskill()
     {
         return (vCoolTime, vCoolTimeText);
     }
+
 
     public GameObject ShowGameOverMenu()
     {
@@ -39,4 +48,5 @@ public class PlayerUI : MonoBehaviour
     {
         return (retryButton, exitButton);
     }
+
 }
