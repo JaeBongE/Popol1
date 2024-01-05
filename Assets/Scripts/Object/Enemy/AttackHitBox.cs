@@ -9,8 +9,9 @@ public class AttackHitBox : MonoBehaviour
         if (collision.gameObject.tag == GameTag.Player.ToString())
         {
             Player playerSc = GetComponentInParent<Player>();
-            playerSc.onDamaged(collision.gameObject.transform.position);
-            playerSc.Hit(1.0f);
+            Enemy enemy = collision.GetComponentInParent<Enemy>();
+            //playerSc.onDamaged(enemy.transform.position);
+            //playerSc.Hit(1.0f);
         }
     }
 }

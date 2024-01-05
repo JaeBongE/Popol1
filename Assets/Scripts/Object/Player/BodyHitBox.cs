@@ -9,7 +9,7 @@ public class BodyHitBox : MonoBehaviour
         if (collision.gameObject.tag == GameTag.Enemy.ToString())
         {
             Player playerSc = GetComponentInParent<Player>();
-            //Enemy enemy = collision.GetComponentInParent<Enemy>();
+           // Enemy enemy = collision.GetComponentInParent<Enemy>();
             playerSc.onDamaged(collision.transform.root.position);
             playerSc.Hit(1.0f);
         }

@@ -418,7 +418,7 @@ public class Player : MonoBehaviour
         timerHit = timerHitLimit;
         rigid.velocity = Vector2.zero;
         verticalVelocity = 0.0f;
-        Vector3 position = transform.position;
+        Vector3 position = gameObject.transform.position;
         if (position.x > _pos.x)//닿은 상대가 player보다 왼쪽에 있다면
         {
             rigid.AddForce(new Vector2(2, 1) * 2, ForceMode2D.Impulse);//오른쪽으로 날아감
