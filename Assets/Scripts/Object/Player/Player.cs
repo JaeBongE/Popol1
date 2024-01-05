@@ -14,12 +14,15 @@ public class Player : MonoBehaviour
     Rigidbody2D rigid;
     PolygonCollider2D polygonColider2D;
     Animator anim;
+    SpriteRenderer spr;
     Vector3 moveDir;//default 0,0,0
     [SerializeField] float moveSpeed = 5.0f;
     [SerializeField] float jumpForce = 5.0f;
     float maxHp = 10;
     [SerializeField] float curHp = 0;
     Slider playerHp;
+    private bool isPlayerLookAtRight = false;
+    [SerializeField] GameObject bodyHitBox;
 
     [Header("점프")]
     [SerializeField] float gravity = 9.81f;
@@ -42,9 +45,13 @@ public class Player : MonoBehaviour
     private bool isXcoolTime = false;
     Image xCoolTime;
     TMP_Text xCoolTimeText;
+    private float timerDash = 0.0f;
+    private float timerDashLimit = 0.5f;
 
-    float timerHit = 0.0f;
-    float timerHitLimit = 0.5f;
+    private float timerHit = 0.0f;
+    private float timerHitLimit = 0.5f;
+
+
 
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
@@ -59,8 +66,9 @@ public class Player : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         polygonColider2D = GetComponent<PolygonCollider2D>();
         anim = GetComponent<Animator>();
+        spr = GetComponent<SpriteRenderer>();
         curHp = maxHp;
-        
+
     }
 
     private void Start()
@@ -73,8 +81,10 @@ public class Player : MonoBehaviour
     void Update()
     {
         checkPlayerUI();
+        checkDirection();
         checkGround();
         checkTimer();
+        checkDashTime();
 
         moving();
         turning();
@@ -101,7 +111,7 @@ public class Player : MonoBehaviour
             GameObject objPlayerUI = GameObject.Find("PlayerUI");
 
             if (objPlayerUI == null)
-            { 
+            {
                 return;
             }
 
@@ -144,6 +154,19 @@ public class Player : MonoBehaviour
 
         //}
     }
+    private void checkDirection()
+    {
+        Vector3 dir = gameObject.transform.localScale;
+        if (dir.x >= 1f)
+        {
+            isPlayerLookAtRight = true;
+        }
+        else if (dir.x <= -1f) 
+        {
+            isPlayerLookAtRight = false;
+        }
+    }
+
     /// <summary>
     /// 플레이어가 땅에 닿아 있는지 체크하는 함수
     /// </summary>
@@ -168,12 +191,25 @@ public class Player : MonoBehaviour
         if (timerHit > 0.0f)
         {
             timerHit -= Time.deltaTime;
-            if(timerHit < 0.0f)
+            if (timerHit < 0.0f)
             {
                 timerHit = 0.0f;
             }
         }
     }
+
+    private void checkDashTime()
+    {
+        if (timerDash > 0.0f)
+        {
+            timerDash -= Time.deltaTime;
+            if (timerDash < 0.0f)
+            {
+                timerDash = 0.0f;
+            }
+        }
+    }
+
 
     /// <summary>
     /// horizontal을 입력했을 때 플레이어 이동함수
@@ -181,6 +217,8 @@ public class Player : MonoBehaviour
     private void moving()
     {
         if (timerHit > 0.0f)
+            return;
+        if (timerDash > 0.0f)
             return;
 
         moveDir.x = Input.GetAxisRaw("Horizontal") * moveSpeed;//-1 0 1
@@ -220,6 +258,9 @@ public class Player : MonoBehaviour
     /// </summary>
     private void checkGravity()
     {
+        if (timerDash > 0.0f)
+            return;
+
         if (isGround == false)//공중에 떠 있을 때
         {
             verticalVelocity -= gravity * Time.deltaTime;//수직으로 받는 힘이 gravity * Time.deltaTime만큼 줄어들고
@@ -264,7 +305,7 @@ public class Player : MonoBehaviour
     private void heal()
     {
         if (curHp == maxHp) return;
-        
+
         if (Input.GetKeyDown(KeyCode.V) && isVcoolTime == false)
         {
             isVcoolTime = true;
@@ -307,12 +348,39 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X) && isXcoolTime == false)
         {
             isXcoolTime = true;
+            timerDash = timerDashLimit;
+            rigid.velocity = Vector2.zero;
+            verticalVelocity = 0.0f;
+            invincibility();
+            anim.SetTrigger("isPlayerDash");
+            if (isPlayerLookAtRight == true)
+            {
+                rigid.AddForce(new Vector2(8, 0), ForceMode2D.Impulse);
+            }
+            else if (isPlayerLookAtRight == false)
+            {
+                rigid.AddForce(new Vector2(-8, 0), ForceMode2D.Impulse);
+            }
+            Invoke("uninvincibility", 0.8f);
         }
 
         if (XskillCoolTime == 0f)
         {
             XskillCoolTime = XskillCoolTimer;
         }
+    }
+    private void invincibility()
+    {
+        gameObject.layer = LayerMask.NameToLayer("PlayerDash");
+        bodyHitBox.layer = LayerMask.NameToLayer("PlayerDash");
+        spr.color = new Color(1, 1, 1, 0.4f);
+    }
+
+    private void uninvincibility()
+    {
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        bodyHitBox.layer = LayerMask.NameToLayer("BodyHitBox");
+        spr.color = new Color(1, 1, 1, 1);
     }
 
     private void dashTimer()
