@@ -15,6 +15,7 @@ public class BodyHitBox : MonoBehaviour
         }
         if (collision.gameObject.tag == GameTag.Potal.ToString())
         {
+            Debug.Log("Æ÷Å»¿¡ ´ê¾Ò½À´Ï´Ù.");    
             Player playerSc = GetComponentInParent<Player>();
             playerSc.NextStage();
         }

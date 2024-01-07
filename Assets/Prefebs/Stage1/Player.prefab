@@ -36,7 +36,7 @@ Transform:
   - {fileID: 8731259162642712510}
   - {fileID: 8066502647699821376}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6046547533492647750
 SpriteRenderer:
@@ -105,6 +105,7 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 5
   curHp: 0
+  bodyHitBox: {fileID: 6617634859668039004}
   gravity: 9.81
   isGround: 0
   swordHitBox: {fileID: 1673915675679305722}

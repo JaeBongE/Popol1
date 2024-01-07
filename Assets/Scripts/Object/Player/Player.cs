@@ -101,7 +101,6 @@ public class Player : MonoBehaviour
         healTimer();
 
         doAnimation();
-        NextStage();
     }
 
     private void checkPlayerUI()
@@ -361,7 +360,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(new Vector2(-8, 0), ForceMode2D.Impulse);
             }
-            Invoke("uninvincibility", 0.8f);
+            Invoke("uninvincibility", 0.6f);
         }
 
         if (XskillCoolTime == 0f)
@@ -467,7 +466,10 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            Debug.Log("다음스테이지로");
             SceneManager.LoadSceneAsync((int)enumScene.Stage2);
         }
     }
+
+
 }
