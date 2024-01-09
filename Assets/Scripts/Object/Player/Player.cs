@@ -47,6 +47,11 @@ public class Player : MonoBehaviour
     TMP_Text xCoolTimeText;
     private float timerDash = 0.0f;
     private float timerDashLimit = 0.5f;
+    private float CskillCoolTime = 5.0f;
+    private float CskillCoolTimer = 5.0f;
+    private bool isCcoolTime = false;
+    Image cCoolTime;
+    TMP_Text cCoolTimeText;
 
     private float timerHit = 0.0f;
     private float timerHitLimit = 0.5f;
@@ -97,6 +102,9 @@ public class Player : MonoBehaviour
         dash();
         dashTimer();
 
+        fire();
+        fireTimer();
+
         heal();
         healTimer();
 
@@ -135,6 +143,10 @@ public class Player : MonoBehaviour
             xCoolTimeText = XskillData._xCoolTimeText;
             xCoolTime.fillAmount = 0f;
 
+            (Image _cCoolTime, TMP_Text _cCoolTimeText) CskillData = scUI.GetCskill();
+            cCoolTime = CskillData._cCoolTime;
+            cCoolTimeText = CskillData._cCoolTimeText;
+            cCoolTime.fillAmount = 0f;
         }
 
 
@@ -374,7 +386,6 @@ public class Player : MonoBehaviour
         bodyHitBox.layer = LayerMask.NameToLayer("PlayerDash");
         spr.color = new Color(1, 1, 1, 0.4f);
     }
-
     private void uninvincibility()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -398,6 +409,35 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void fire()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            isCcoolTime = true;
+        }
+
+        if (CskillCoolTime == 0f)
+        {
+            CskillCoolTime = CskillCoolTimer;
+        }
+    }
+
+    private void fireTimer()
+    {
+        if (isCcoolTime == true && CskillCoolTimer > 0f)
+        {
+            CskillCoolTime -= Time.deltaTime;
+            cCoolTime.fillAmount = CskillCoolTime / CskillCoolTimer;
+            cCoolTimeText.text = ($"{CskillCoolTime.ToString("F1")}");
+            if (CskillCoolTime <= 0f)
+            {
+                CskillCoolTime = 0f;
+                cCoolTimeText.text = "";
+                isCcoolTime = false;
+            }
+        }
+    }
+
     /// <summary>
     /// 애니메이션 변수 전달 함수
     /// </summary>
@@ -417,6 +457,7 @@ public class Player : MonoBehaviour
         timerHit = timerHitLimit;
         rigid.velocity = Vector2.zero;
         verticalVelocity = 0.0f;
+        invincibility();
         Vector3 position = gameObject.transform.position;
         if (position.x > _pos.x)//닿은 상대가 player보다 왼쪽에 있다면
         {
@@ -429,6 +470,8 @@ public class Player : MonoBehaviour
         verticalVelocity = rigid.velocity.y;
 
         anim.SetTrigger("isPlayerHit");//hit애니메이션 작동
+
+        Invoke("uninvincibility", 1f);
     }
 
     /// <summary>

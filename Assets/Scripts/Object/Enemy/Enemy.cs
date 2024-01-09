@@ -28,6 +28,8 @@ public class Enemy : MonoBehaviour
     {
         FlyingEye,
         Skeleton,
+        Obstacle,
+        Mushroom,
     }
     public enumEnemyType enemyType;
 
@@ -44,6 +46,7 @@ public class Enemy : MonoBehaviour
         checkPlayer();
         moving();
         checkDirection();
+        msTurning();
     }
 
     private void checkPlayer()
@@ -57,6 +60,14 @@ public class Enemy : MonoBehaviour
 
     private void FixedUpdate()
     {
+        checkTurn();
+    }
+
+    private void checkTurn()
+    {
+        if (enemyType == enumEnemyType.Obstacle) return;
+        if (enemyType == enumEnemyType.Mushroom) return;
+
         if (wallCheckBox.IsTouchingLayers(ground) == true)//wallcheckbox가 벽에 닿았다면 턴
         {
             turning();
@@ -66,7 +77,6 @@ public class Enemy : MonoBehaviour
         {
             turning();
         }
-
     }
 
     /// <summary>
@@ -74,11 +84,14 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void moving()
     {
+        if (enemyType == enumEnemyType.Obstacle) return;
+        if (enemyType == enumEnemyType.Mushroom) return;
         rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
     }
 
     private void checkDirection()
     {
+        if (enemyType == enumEnemyType.Obstacle) return;
         if (player.transform.localScale.x >= 1)
         {
             isPlayerLookAtRight = true;
@@ -94,6 +107,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void turning()
     {
+        if (enemyType == enumEnemyType.Obstacle) return;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
@@ -101,8 +115,28 @@ public class Enemy : MonoBehaviour
         moveSpeed *= -1;
     }
 
+    private void msTurning()
+    {
+        if (enemyType == enumEnemyType.Mushroom)
+        {
+            Vector3 scale = transform.localScale;
+            Vector2 playerPosition = player.transform.position;
+            Vector2 position = gameObject.transform.position;
+            if (playerPosition.x >= position.x)
+            {
+                scale.x = 1;
+            }
+            else if (playerPosition.x < position.x)
+            {
+                scale.x = -1;
+            }
+            transform.localScale = scale;
+        }
+    }
+
     public void Hit(float _damage)
     {
+        if (enemyType == enumEnemyType.Obstacle) return;
         curHp -= _damage;
         hitPosition();
         if (curHp <= 0 && enemyType == enumEnemyType.FlyingEye)
@@ -120,6 +154,7 @@ public class Enemy : MonoBehaviour
 
     private void hitPosition()
     {
+        if (enemyType == enumEnemyType.Obstacle) return;
         if (enemyType == enumEnemyType.FlyingEye)
         {
             anim.SetTrigger("Hit");
@@ -130,6 +165,13 @@ public class Enemy : MonoBehaviour
             anim.SetTrigger("Hit2");
         }
 
+        setHitPosition();
+
+    }
+
+    private void setHitPosition()
+    {
+        if (enemyType == enumEnemyType.Mushroom) return;
         Vector3 position = transform.position;
         if (isPlayerLookAtRight == true)
         {

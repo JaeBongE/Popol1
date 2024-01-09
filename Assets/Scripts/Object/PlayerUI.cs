@@ -10,6 +10,9 @@ public class PlayerUI : MonoBehaviour
     [Header("대쉬")]
     [SerializeField] Image xCoolTime;
     [SerializeField] TMP_Text xCoolTimeText;
+    [Header("파이어볼")]
+    [SerializeField] Image cCoolTime;
+    [SerializeField] TMP_Text cCoolTimeText;
     [Header("힐")]
     [SerializeField] Image vCoolTime;
     [SerializeField] TMP_Text vCoolTimeText;
@@ -31,6 +34,11 @@ public class PlayerUI : MonoBehaviour
     public (Image _xCoolTime, TMP_Text _xCoolTimeText) GetXskill()
     {
         return (xCoolTime, xCoolTimeText);
+    }
+
+    public (Image _cCoolTime, TMP_Text _cCoolTimeText) GetCskill()
+    {
+        return (cCoolTime, cCoolTimeText);
     }
 
     public (Image _vCoolTime, TMP_Text _vCoolTimeText) GetVskill()
