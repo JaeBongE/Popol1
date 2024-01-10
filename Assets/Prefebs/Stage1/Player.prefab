@@ -35,8 +35,9 @@ Transform:
   m_Children:
   - {fileID: 8731259162642712510}
   - {fileID: 8066502647699821376}
+  - {fileID: 880684860848056524}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6046547533492647750
 SpriteRenderer:
@@ -109,6 +110,8 @@ MonoBehaviour:
   gravity: 9.81
   isGround: 0
   swordHitBox: {fileID: 1673915675679305722}
+  FireBallPos: {fileID: 880684860848056524}
+  fireBall: {fileID: 5330565403198323945, guid: 297c6626ee2c1ee478b383d8bf2ab5df, type: 3}
 --- !u!50 &6910776789803687209
 Rigidbody2D:
   serializedVersion: 4
@@ -216,6 +219,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &4379166831260178794
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 880684860848056524}
+  m_Layer: 3
+  m_Name: FireBallPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &880684860848056524
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4379166831260178794}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.779, y: 0.565, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4732780506160129136}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6585696247385059256
 GameObject:
   m_ObjectHideFlags: 0

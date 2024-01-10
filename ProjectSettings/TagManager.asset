@@ -23,8 +23,8 @@ TagManager:
   - PlayerDash
   - EnemyBody
   - Potal
-  - 
-  - 
+  - EnemyDeath
+  - FireBall
   - 
   - 
   - 

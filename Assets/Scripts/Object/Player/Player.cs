@@ -47,6 +47,8 @@ public class Player : MonoBehaviour
     TMP_Text xCoolTimeText;
     private float timerDash = 0.0f;
     private float timerDashLimit = 0.5f;
+    [SerializeField] Transform FireBallPos;
+    [SerializeField] GameObject fireBall;
     private float CskillCoolTime = 5.0f;
     private float CskillCoolTimer = 5.0f;
     private bool isCcoolTime = false;
@@ -172,7 +174,7 @@ public class Player : MonoBehaviour
         {
             isPlayerLookAtRight = true;
         }
-        else if (dir.x <= -1f) 
+        else if (dir.x <= -1f)
         {
             isPlayerLookAtRight = false;
         }
@@ -372,7 +374,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(new Vector2(-8, 0), ForceMode2D.Impulse);
             }
-            Invoke("uninvincibility", 0.6f);
+            Invoke("uninvincibility", 0.5f);
         }
 
         if (XskillCoolTime == 0f)
@@ -411,14 +413,33 @@ public class Player : MonoBehaviour
 
     private void fire()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && isCcoolTime == false)
         {
             isCcoolTime = true;
+            anim.SetTrigger("isPlayerFire");
+            createFire();
         }
 
         if (CskillCoolTime == 0f)
         {
             CskillCoolTime = CskillCoolTimer;
+        }
+    }
+
+    private void createFire()
+    {
+        Vector2 playerSc = gameObject.transform.localScale;
+        if (playerSc.x >= 0)
+        {
+            GameObject obj = Instantiate(fireBall, FireBallPos.position, Quaternion.Euler(0, 0, 90f));
+            FireBall scFireBall = obj.GetComponent<FireBall>();
+            scFireBall.SetFire(true);
+        }
+        else if (playerSc.x < 0)
+        {
+            GameObject obj = Instantiate(fireBall, FireBallPos.position, Quaternion.Euler(0, 0, -90f));
+            FireBall scFireBall = obj.GetComponent<FireBall>();
+            scFireBall.SetFire(true);
         }
     }
 
@@ -471,7 +492,7 @@ public class Player : MonoBehaviour
 
         anim.SetTrigger("isPlayerHit");//hit애니메이션 작동
 
-        Invoke("uninvincibility", 1f);
+        Invoke("uninvincibility", 2f);
     }
 
     /// <summary>
@@ -507,11 +528,7 @@ public class Player : MonoBehaviour
 
     public void NextStage()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Debug.Log("다음스테이지로");
-            SceneManager.LoadSceneAsync((int)enumScene.Stage2);
-        }
+        SceneManager.LoadSceneAsync((int)enumScene.Stage2);
     }
 
 

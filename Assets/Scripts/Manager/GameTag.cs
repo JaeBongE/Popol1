@@ -8,4 +8,5 @@ public enum GameTag
     Player,
     Enemy,
     Potal,
+    BodyHitBox,
 }

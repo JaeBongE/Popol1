@@ -13,7 +13,7 @@ public class BodyHitBox : MonoBehaviour
             playerSc.onDamaged(collision.transform.root.position);
             playerSc.Hit(1.0f);
         }
-        if (collision.gameObject.tag == GameTag.Potal.ToString())
+        if (Input.GetKeyDown(KeyCode.UpArrow) && collision.gameObject.tag == GameTag.Potal.ToString())
         {
             Debug.Log("Æ÷Å»¿¡ ´ê¾Ò½À´Ï´Ù.");    
             Player playerSc = GetComponentInParent<Player>();

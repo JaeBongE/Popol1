@@ -142,13 +142,22 @@ public class Enemy : MonoBehaviour
         if (curHp <= 0 && enemyType == enumEnemyType.FlyingEye)
         {
             anim.SetTrigger("Death");
-            Destroy(gameObject, 0.5f);
+            gameObject.layer = LayerMask.NameToLayer("EnemyDeath");
+            Destroy(gameObject, 0.8f);
         }
 
         if (curHp <= 0 && enemyType == enumEnemyType.Skeleton)
         {
             anim.SetTrigger("Death2");
-            Destroy(gameObject, 0.5f);
+            gameObject.layer = LayerMask.NameToLayer("EnemyDeath");
+            Destroy(gameObject, 0.8f);
+        }
+
+        if (curHp <= 0 && enemyType == enumEnemyType.Mushroom)
+        {
+            anim.SetTrigger("Death3");
+            gameObject.layer = LayerMask.NameToLayer("EnemyDeath");
+            Destroy(gameObject, 0.8f);
         }
     }
 
@@ -163,6 +172,11 @@ public class Enemy : MonoBehaviour
         if (enemyType == enumEnemyType.Skeleton)
         {
             anim.SetTrigger("Hit2");
+        }
+
+        if (enemyType == enumEnemyType.Mushroom)
+        {
+            anim.SetTrigger("Hit3");
         }
 
         setHitPosition();
