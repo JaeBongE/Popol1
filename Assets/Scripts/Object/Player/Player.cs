@@ -526,10 +526,18 @@ public class Player : MonoBehaviour
         swordHitBox.enabled = false;
     }
 
-    public void NextStage()
-    {
-        SceneManager.LoadSceneAsync((int)enumScene.Stage2);
-    }
+    //public void NextStage(enumScene _scene)
+    //{
+    //    int curStage = (int)_scene;
+    //    curStage++;
+    //    SceneManager.LoadSceneAsync(curStage);
+    //}
+
+    //public void ToStage(enumScene _scene)
+    //{
+    //    int nextStage = (int)_scene;
+    //    SceneManager.LoadSceneAsync(nextStage);
+    //}
 
 
 }

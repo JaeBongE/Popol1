@@ -22,15 +22,19 @@ public class FireBall : MonoBehaviour
     {
         if (isPlayerFire == true && collision.gameObject.tag == GameTag.Enemy.ToString())
         {
-            Enemy enemySc = collision.GetComponent<Enemy>();
+            Enemy enemySc = collision.GetComponentInParent<Enemy>();
             enemySc.Hit(damage);
             Destroy(gameObject);
         }
-        if (isPlayerFire == false && collision.gameObject.tag == GameTag.BodyHitBox.ToString())
+        //if (isPlayerFire == false && collision.gameObject.tag == GameTag.BodyHitBox.ToString())
+        //{
+        //    Player playerSc = GetComponentInParent<Player>();
+        //    playerSc.onDamaged(gameObject.transform.position);
+        //    playerSc.Hit(damage);
+        //    Destroy(gameObject);
+        //}
+        if (isPlayerFire == false && collision.gameObject.tag == GameTag.BodyHitBox.ToString() || collision.gameObject.tag == GameTag.Ground.ToString())
         {
-            Player playerSc = GetComponentInParent<Player>();
-            playerSc.onDamaged(gameObject.transform.position);
-            playerSc.Hit(damage);
             Destroy(gameObject);
         }
     }

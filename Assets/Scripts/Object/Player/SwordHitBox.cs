@@ -10,7 +10,7 @@ public class SwordHitBox : MonoBehaviour
     {
         if (collision.gameObject.tag == GameTag.Enemy.ToString())
         {
-            Enemy enemySc = collision.GetComponent<Enemy>();
+            Enemy enemySc = collision.GetComponentInParent<Enemy>();
             enemySc.Hit(SwordDamage);
         }
     }

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     {
         Stage1,
         Stage2,
+        Stage3,
     }
 
     GameObject gameOverMenu;
@@ -110,6 +111,12 @@ public class GameManager : MonoBehaviour
     private void stopGame()
     {
         Time.timeScale = 0f;
+    }
+
+    public void ToStage(enumScene _scene)
+    {
+        int nextStage = (int)_scene;
+        SceneManager.LoadSceneAsync(nextStage);
     }
 }
 

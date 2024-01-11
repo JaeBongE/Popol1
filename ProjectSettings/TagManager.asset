@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - BodyHitBox
   - Potal
+  - FireBall
   layers:
   - Default
   - TransparentFX

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Enemy : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D rigid;
     Animator anim;
     private bool isPlayerLookAtRight = false;
+    private float timerHit = 0.0f;
+    private float timerHitLimit = 0.5f;
 
     [Header("턴 기능")]
     [SerializeField] private LayerMask ground;
@@ -22,6 +25,11 @@ public class Enemy : MonoBehaviour
 
     [Header("적 공격")]
     [SerializeField] private Collider2D attackHitBox;
+    [SerializeField] Transform fireBallMPos;
+    [SerializeField] GameObject fireBallM;
+    private float fireTimer = 5.0f;
+    private float fireLimitTimer = 5.0f;
+    private bool shootFireM = false;
 
 
     public enum enumEnemyType
@@ -44,9 +52,12 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         checkPlayer();
+        checkTimer();
         moving();
         checkDirection();
         msTurning();
+        msFire();
+        msFireCoolTime();
     }
 
     private void checkPlayer()
@@ -84,6 +95,7 @@ public class Enemy : MonoBehaviour
     /// </summary>
     private void moving()
     {
+        if (timerHit > 0.0f) return;
         if (enemyType == enumEnemyType.Obstacle) return;
         if (enemyType == enumEnemyType.Mushroom) return;
         rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
@@ -131,6 +143,47 @@ public class Enemy : MonoBehaviour
                 scale.x = -1;
             }
             transform.localScale = scale;
+        }
+    }
+
+    private void msFire()
+    {
+        if (enemyType != enumEnemyType.Mushroom) return;
+
+        Vector2 playerSc = gameObject.transform.localScale;
+        if (shootFireM == true)
+        {
+            anim.SetTrigger("Fire");
+            if (playerSc.x >= 0)
+            {
+                GameObject obj = Instantiate(fireBallM, fireBallMPos.position, Quaternion.Euler(0, 0, 90f));
+                FireBall scFireBall = obj.GetComponent<FireBall>();
+                scFireBall.SetFire(false);
+            }
+            else if (playerSc.x < 0)
+            {
+                GameObject obj = Instantiate(fireBallM, fireBallMPos.position, Quaternion.Euler(0, 0, -90f));
+                FireBall scFireBall = obj.GetComponent<FireBall>();
+                scFireBall.SetFire(false);
+            }
+        }
+        
+        if (fireTimer == 0)
+        {
+            fireTimer = fireLimitTimer;
+            shootFireM = false;
+        }
+    }
+    private void msFireCoolTime()
+    {
+        if (fireTimer > 0f)
+        {
+            fireTimer -= Time.deltaTime;
+            if (fireTimer <= 0f)
+            {
+                shootFireM = true;
+                fireTimer = 0f;
+            }
         }
     }
 
@@ -186,16 +239,29 @@ public class Enemy : MonoBehaviour
     private void setHitPosition()
     {
         if (enemyType == enumEnemyType.Mushroom) return;
+        timerHit = timerHitLimit;
         Vector3 position = transform.position;
         if (isPlayerLookAtRight == true)
         {
-            position.x += 1;
+            rigid.AddForce(new Vector2(1, 1) * 2, ForceMode2D.Impulse);
         }
         else
         {
-            position.x -= 1;
+            rigid.AddForce(new Vector2(-1, 1) * 2, ForceMode2D.Impulse);
         }
         transform.position = position;
+    }
+
+    private void checkTimer()
+    {
+        if (timerHit > 0.0f)
+        {
+            timerHit -= Time.deltaTime;
+            if (timerHit < 0.0f)
+            {
+                timerHit = 0.0f;
+            }
+        }
     }
 
     public void Attack()
