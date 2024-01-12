@@ -351,6 +351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 5
   moveSpeed: 2
+  enemyBody: {fileID: 3156603421526999018}
   ground:
     serializedVersion: 2
     m_Bits: 64

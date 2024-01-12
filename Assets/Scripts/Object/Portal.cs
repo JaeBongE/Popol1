@@ -10,8 +10,12 @@ public class Portal : MonoBehaviour
 
     private void Awake()
     {
-        gameManager = GameManager.Instance;
         boxColl = GetComponent<BoxCollider2D>();
+    }
+
+    private void Start()
+    {
+        gameManager = GameManager.Instance;
     }
 
     //private void OnTriggerStay2D(Collider2D collision)

@@ -268,7 +268,7 @@ Transform:
   - {fileID: 9216249904917167457}
   - {fileID: 4647734807912627888}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6202639822994795807
 SpriteRenderer:
@@ -429,6 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 3
   moveSpeed: 1
+  enemyBody: {fileID: 1496811648467670255}
   ground:
     serializedVersion: 2
     m_Bits: 64

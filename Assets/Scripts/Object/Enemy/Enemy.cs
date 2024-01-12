@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     private bool isPlayerLookAtRight = false;
     private float timerHit = 0.0f;
     private float timerHitLimit = 0.5f;
+    [SerializeField] GameObject enemyBody;
 
     [Header("≈œ ±‚¥…")]
     [SerializeField] private LayerMask ground;
@@ -195,21 +196,21 @@ public class Enemy : MonoBehaviour
         if (curHp <= 0 && enemyType == enumEnemyType.FlyingEye)
         {
             anim.SetTrigger("Death");
-            gameObject.layer = LayerMask.NameToLayer("EnemyDeath");
+            enemyBody.layer = LayerMask.NameToLayer("EnemyDeath");
             Destroy(gameObject, 0.8f);
         }
 
         if (curHp <= 0 && enemyType == enumEnemyType.Skeleton)
         {
             anim.SetTrigger("Death2");
-            gameObject.layer = LayerMask.NameToLayer("EnemyDeath");
+            enemyBody.layer = LayerMask.NameToLayer("EnemyDeath");
             Destroy(gameObject, 0.8f);
         }
 
         if (curHp <= 0 && enemyType == enumEnemyType.Mushroom)
         {
             anim.SetTrigger("Death3");
-            gameObject.layer = LayerMask.NameToLayer("EnemyDeath");
+            enemyBody.layer = LayerMask.NameToLayer("EnemyDeath");
             Destroy(gameObject, 0.8f);
         }
     }
@@ -243,11 +244,11 @@ public class Enemy : MonoBehaviour
         Vector3 position = transform.position;
         if (isPlayerLookAtRight == true)
         {
-            rigid.AddForce(new Vector2(1, 1) * 2, ForceMode2D.Impulse);
+            rigid.AddForce(new Vector2(1.5f, 2), ForceMode2D.Impulse);
         }
         else
         {
-            rigid.AddForce(new Vector2(-1, 1) * 2, ForceMode2D.Impulse);
+            rigid.AddForce(new Vector2(-1.5f, 2), ForceMode2D.Impulse);
         }
         transform.position = position;
     }

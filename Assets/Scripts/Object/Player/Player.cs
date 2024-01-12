@@ -374,7 +374,7 @@ public class Player : MonoBehaviour
             {
                 rigid.AddForce(new Vector2(-8, 0), ForceMode2D.Impulse);
             }
-            Invoke("uninvincibility", 0.5f);
+            Invoke("uninvincibility", 0.8f);
         }
 
         if (XskillCoolTime == 0f)
