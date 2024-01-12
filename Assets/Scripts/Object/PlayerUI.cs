@@ -7,6 +7,7 @@ using TMPro;
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] Slider playerHp;
+    [SerializeField] TMP_Text textHp;
     [Header("´ë½¬")]
     [SerializeField] Image xCoolTime;
     [SerializeField] TMP_Text xCoolTimeText;
@@ -26,9 +27,9 @@ public class PlayerUI : MonoBehaviour
     //    return (vCoolTime, playerHp, vCoolTimeText);
     //}
 
-    public Slider GetPlayerHp()
+    public (Slider playerHp, TMP_Text textHp) GetPlayerHp()
     {
-        return playerHp;
+        return (playerHp, textHp);
     }
 
     public (Image _xCoolTime, TMP_Text _xCoolTimeText) GetXskill()

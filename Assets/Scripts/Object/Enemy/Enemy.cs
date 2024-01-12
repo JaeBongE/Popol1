@@ -241,7 +241,6 @@ public class Enemy : MonoBehaviour
     {
         if (enemyType == enumEnemyType.Mushroom) return;
         timerHit = timerHitLimit;
-        Vector3 position = transform.position;
         if (isPlayerLookAtRight == true)
         {
             rigid.AddForce(new Vector2(1.5f, 2), ForceMode2D.Impulse);
@@ -250,7 +249,6 @@ public class Enemy : MonoBehaviour
         {
             rigid.AddForce(new Vector2(-1.5f, 2), ForceMode2D.Impulse);
         }
-        transform.position = position;
     }
 
     private void checkTimer()

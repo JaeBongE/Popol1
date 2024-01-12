@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     Button exitButton;
 
     Slider playerHp;
+    TMP_Text textHp;
 
     private void Awake()
     {
@@ -93,7 +94,8 @@ public class GameManager : MonoBehaviour
             GameObject objPlayerUI = GameObject.Find("PlayerUI");
             if (objPlayerUI == null) return;
             PlayerUI scUI = objPlayerUI.GetComponent<PlayerUI>();
-            playerHp = scUI.GetPlayerHp();
+            (Slider playerHp, TMP_Text textHp) HpData = scUI.GetPlayerHp();
+            playerHp = HpData.playerHp;
         }
         if (playerHp.value <= 0)
         {

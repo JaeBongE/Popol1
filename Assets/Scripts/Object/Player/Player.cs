@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     float maxHp = 10;
     [SerializeField] float curHp = 0;
     Slider playerHp;
+    TMP_Text textHp;
     private bool isPlayerLookAtRight = false;
     [SerializeField] GameObject bodyHitBox;
 
@@ -88,6 +89,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         checkPlayerUI();
+        textHp.text = ($"{curHp} / {maxHp}");
         checkDirection();
         checkGround();
         checkTimer();
@@ -128,7 +130,9 @@ public class Player : MonoBehaviour
             //(Image _VcoolTime, Slider _PlayerHp, TMP_Text _VCoolTimeText) data = scUI.GetProperty();
 
             //var data2 = scUI.GetProperty();
-            playerHp = scUI.GetPlayerHp();
+            (Slider playerHp, TMP_Text textHp) HpData = scUI.GetPlayerHp();
+            playerHp = HpData.playerHp;
+            textHp = HpData.textHp;
             (Image _vCoolTime, TMP_Text _vCoolTimeText) VskillData = scUI.GetVskill();
             vCoolTime = VskillData._vCoolTime;
             vCoolTimeText = VskillData._vCoolTimeText;
