@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
         Stage1,
         Stage2,
         Stage3,
+        Boss,
     }
 
     GameObject gameOverMenu;

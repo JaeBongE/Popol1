@@ -200,6 +200,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 738999140584676060, guid: 5ca9395bb7981cf46996438ce7d5cf40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1573934381885524185, guid: 5ca9395bb7981cf46996438ce7d5cf40, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -16841,10 +16845,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1176022998651409778, guid: d9d6078b5c3b66a4f9aa83438ed257da, type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3025309115522777179, guid: d9d6078b5c3b66a4f9aa83438ed257da, type: 3}
       propertyPath: m_RootOrder
       value: 30
