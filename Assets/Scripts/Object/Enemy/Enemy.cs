@@ -32,6 +32,11 @@ public class Enemy : MonoBehaviour
     private float fireLimitTimer = 5.0f;
     private bool shootFireM = false;
 
+    private int pattern = 1;//현재 패턴
+    private int patternShootCount = 0;//현재 패턴을 몇 번 사용했는지
+    private float patternTimer = 0.0f;//패턴 리로드 용
+    private bool patternChange = false;//패턴을 교체해야 하는지
+
 
     public enum enumEnemyType
     {
@@ -39,6 +44,7 @@ public class Enemy : MonoBehaviour
         Skeleton,
         Obstacle,
         Mushroom,
+        Boss,
     }
     public enumEnemyType enemyType;
 
@@ -59,6 +65,7 @@ public class Enemy : MonoBehaviour
         msTurning();
         msFire();
         msFireCoolTime();
+        bossPattern();
     }
 
     private void checkPlayer()
@@ -79,6 +86,7 @@ public class Enemy : MonoBehaviour
     {
         if (enemyType == enumEnemyType.Obstacle) return;
         if (enemyType == enumEnemyType.Mushroom) return;
+        if (enemyType == enumEnemyType.Boss) return;
 
         if (wallCheckBox.IsTouchingLayers(ground) == true)//wallcheckbox가 벽에 닿았다면 턴
         {
@@ -99,6 +107,7 @@ public class Enemy : MonoBehaviour
         if (timerHit > 0.0f) return;
         if (enemyType == enumEnemyType.Obstacle) return;
         if (enemyType == enumEnemyType.Mushroom) return;
+        if (enemyType == enumEnemyType.Boss) return;
         rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
     }
 
@@ -188,6 +197,31 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void bossPattern()
+    {
+        if (enemyType != enumEnemyType.Boss) return;
+
+        patternTimer += Time.deltaTime;
+
+        if (patternChange == true)
+        {
+            if (patternTimer >= 3.0f)
+            {
+                patternTimer = 0.0f;
+                patternChange = false;
+            }
+            return;
+        }
+    }
+    
+    private void bossDash()
+    {
+        if (enemyType == enumEnemyType.Boss)
+        {
+            rigid.AddForce(new Vector2(-1.5f,0), ForceMode2D.Impulse);
+        }
+    }
+
     public void Hit(float _damage)
     {
         if (enemyType == enumEnemyType.Obstacle) return;
@@ -240,6 +274,7 @@ public class Enemy : MonoBehaviour
     private void setHitPosition()
     {
         if (enemyType == enumEnemyType.Mushroom) return;
+        if (enemyType == enumEnemyType.Boss) return;
         timerHit = timerHitLimit;
         if (isPlayerLookAtRight == true)
         {
