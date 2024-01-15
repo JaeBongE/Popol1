@@ -212,6 +212,11 @@ public class Enemy : MonoBehaviour
             }
             return;
         }
+
+        switch (pattern)
+        {
+            
+        }
     }
     
     private void bossDash()
