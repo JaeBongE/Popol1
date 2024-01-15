@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     public enum enumScene
     {
+        MainMenu,
         Stage1,
         Stage2,
         Stage3,
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour
     GameObject gameOverMenu;
     Button retryButton;
     Button exitButton;
+    GameObject howToPlay;
 
     Slider playerHp;
     TMP_Text textHp;
@@ -56,6 +58,11 @@ public class GameManager : MonoBehaviour
         setGameOverMenu();
         getPlayerHp();
         //GameOver();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Time.timeScale = 0f;
+            howToPlay.SetActive(true);
+        }
     }
 
     private void setGameOverMenu()
@@ -70,7 +77,8 @@ public class GameManager : MonoBehaviour
             (Button _retryButton, Button _exitButton) gameOverButton = scUI.ShowGameOverButton();
             retryButton = gameOverButton._retryButton;
             exitButton = gameOverButton._exitButton;
-
+            howToPlay = scUI.getHowToPlay();
+            howToPlay.SetActive(false);
             gameOverMenu.SetActive(false);
             retryButton.onClick.AddListener(() =>
             {

@@ -21,6 +21,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] GameObject gameOverMenu;
     [SerializeField] Button retryButton;
     [SerializeField] Button exitButton;
+    [Header("HowToPlay")]
+    [SerializeField] GameObject howToPlay;
 
     //public (Image _VcoolTime, Slider _PlayerHp, TMP_Text _VCoolTimeText) GetProperty()
     //{
@@ -58,4 +60,8 @@ public class PlayerUI : MonoBehaviour
         return (retryButton, exitButton);
     }
 
+    public GameObject getHowToPlay()
+    {
+        return howToPlay;
+    }
 }
