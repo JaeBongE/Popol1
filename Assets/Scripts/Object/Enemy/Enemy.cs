@@ -73,7 +73,6 @@ public class Enemy : MonoBehaviour
         msFire();
         msFireCoolTime();
         bossPattern();
-
     }
 
     private void setBossHp()
@@ -289,6 +288,17 @@ public class Enemy : MonoBehaviour
             Invoke("reMove", 0.8f);
         }
             
+    }
+
+    private void bossFire()
+    {
+        if (enemyType != enumEnemyType.Boss) return;
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            moveSpeed = 0f;
+            anim.SetTrigger("BossFire");
+            Invoke("reMove", 0.8f);
+        }
     }
 
     private void checkDashTime()
