@@ -136,14 +136,9 @@ public class GameManager : MonoBehaviour
 
         if (bossHp.value <= 0)
         {
-            Invoke("setVictoryMenu", 1f);
+            vicTory.SetActive(true);
+            Invoke("stopGame", 1f);
         }
-    }
-
-    private void setVictoryMenu()
-    {
-        Time.timeScale = 0f;
-        vicTory.SetActive(true);
     }
 
     private void GameOver()
