@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
     Slider playerHp;
     TMP_Text textHp;
 
+    Slider bossHp;
+    GameObject vicTory;
+    [SerializeField] GameObject bossUI;
+
     private void Awake()
     {
         if (Instance == null)
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 0f;
             howToPlay.SetActive(true);
         }
+        getBossHp();
     }
 
     private void setGameOverMenu()
@@ -79,6 +84,8 @@ public class GameManager : MonoBehaviour
             exitButton = gameOverButton._exitButton;
             howToPlay = scUI.getHowToPlay();
             howToPlay.SetActive(false);
+            vicTory = scUI.getVictory();
+            vicTory.SetActive(false);
             gameOverMenu.SetActive(false);
             retryButton.onClick.AddListener(() =>
             {
@@ -93,6 +100,7 @@ public class GameManager : MonoBehaviour
             Application.Quit();
 #endif
             });
+
         }
 
     }
@@ -110,6 +118,32 @@ public class GameManager : MonoBehaviour
         {
             GameOver();
         }
+    }
+
+    private void getBossHp()
+    {
+        if (bossHp == null)
+        {
+            GameObject bossUI = GameObject.Find("BossUI");
+
+            if (bossUI == null)
+            {
+                return;
+            }
+            BossUI scBossUI = bossUI.GetComponent<BossUI>();
+            bossHp = scBossUI.getBossHp();
+        }
+
+        if (bossHp.value <= 0)
+        {
+            Invoke("setVictoryMenu", 1f);
+        }
+    }
+
+    private void setVictoryMenu()
+    {
+        Time.timeScale = 0f;
+        vicTory.SetActive(true);
     }
 
     private void GameOver()

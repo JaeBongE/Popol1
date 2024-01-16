@@ -171,6 +171,10 @@ public class Player : MonoBehaviour
 
         //}
     }
+    
+    /// <summary>
+    /// 플레이어가 보는 방향을 체크하는 함수
+    /// </summary>
     private void checkDirection()
     {
         Vector3 dir = gameObject.transform.localScale;
@@ -203,6 +207,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 플레이어가 데미지를 받았을 때 무빙의 물리를 받지 않게 하기 위한 함수
+    /// </summary>
     private void checkTimer()
     {
         if (timerHit > 0.0f)
@@ -215,6 +222,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 대쉬를 했을 때 무빙의 물리를 받지 않게 하기 위한 함수
+    /// </summary>
     private void checkDashTime()
     {
         if (timerDash > 0.0f)
@@ -233,14 +243,14 @@ public class Player : MonoBehaviour
     /// </summary>
     private void moving()
     {
-        if (timerHit > 0.0f)
+        if (timerHit > 0.0f)//플레이어가 히트 했을 때 리턴
             return;
-        if (timerDash > 0.0f)
+        if (timerDash > 0.0f)//플레이어가 대쉬 했을 때 리턴
             return;
 
         moveDir.x = Input.GetAxisRaw("Horizontal") * moveSpeed;//-1 0 1
         moveDir.y = rigid.velocity.y;
-        rigid.velocity = moveDir;
+        rigid.velocity = moveDir;// horizontal 입력값에 따라 움직임
     }
     /// <summary>
     /// 플레이어의 이동 방향에 따라 로컬스케일 x 값을 반대로 주어 회전하게 하는 함수

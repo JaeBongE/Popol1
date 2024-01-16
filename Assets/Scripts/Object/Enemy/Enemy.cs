@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml.Serialization;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
@@ -32,10 +33,13 @@ public class Enemy : MonoBehaviour
     private float fireLimitTimer = 5.0f;
     private bool shootFireM = false;
 
+    private Slider bossHp;
     private int pattern = 1;//현재 패턴
     private int patternShootCount = 0;//현재 패턴을 몇 번 사용했는지
     private float patternTimer = 0.0f;//패턴 리로드 용
     private bool patternChange = false;//패턴을 교체해야 하는지
+    private float timerDash = 0.0f;
+    private float timerDashLimit = 0.5f;
 
 
     public enum enumEnemyType
@@ -54,18 +58,43 @@ public class Enemy : MonoBehaviour
         curHp = maxHp;
         anim = GetComponent<Animator>();
         defaultSpeed = moveSpeed;
+
     }
 
     void Update()
     {
+        setBossHp();
         checkPlayer();
         checkTimer();
+        checkDashTime();
         moving();
         checkDirection();
         msTurning();
         msFire();
         msFireCoolTime();
         bossPattern();
+
+    }
+
+    private void setBossHp()
+    {
+        if (bossHp == null && enemyType == enumEnemyType.Boss)
+        {
+            GameObject bossUI = GameObject.Find("BossUI");
+
+            if (bossUI == null)
+            {
+                return;
+            }
+            BossUI scBossUI = bossUI.GetComponent<BossUI>();
+            bossHp = scBossUI.getBossHp();
+
+            bossHp.maxValue = maxHp;
+        }
+        if (enemyType == enumEnemyType.Boss)
+        {
+            bossHp.value = curHp;
+        }
     }
 
     private void checkPlayer()
@@ -86,7 +115,6 @@ public class Enemy : MonoBehaviour
     {
         if (enemyType == enumEnemyType.Obstacle) return;
         if (enemyType == enumEnemyType.Mushroom) return;
-        if (enemyType == enumEnemyType.Boss) return;
 
         if (wallCheckBox.IsTouchingLayers(ground) == true)//wallcheckbox가 벽에 닿았다면 턴
         {
@@ -107,8 +135,12 @@ public class Enemy : MonoBehaviour
         if (timerHit > 0.0f) return;
         if (enemyType == enumEnemyType.Obstacle) return;
         if (enemyType == enumEnemyType.Mushroom) return;
-        if (enemyType == enumEnemyType.Boss) return;
+        if (timerDash > 0.0f && enemyType == enumEnemyType.Boss) return;
         rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
+        if (enemyType == enumEnemyType.Boss)
+        {
+            rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
+        }
     }
 
     private void checkDirection()
@@ -177,7 +209,7 @@ public class Enemy : MonoBehaviour
                 scFireBall.SetFire(false);
             }
         }
-        
+
         if (fireTimer == 0)
         {
             fireTimer = fireLimitTimer;
@@ -215,15 +247,59 @@ public class Enemy : MonoBehaviour
 
         switch (pattern)
         {
-            
+
         }
     }
-    
+
     private void bossDash()
     {
-        if (enemyType == enumEnemyType.Boss)
+        if (enemyType != enumEnemyType.Boss) return;
+        if (Input.GetKeyDown(KeyCode.K))
         {
-            rigid.AddForce(new Vector2(-1.5f,0), ForceMode2D.Impulse);
+            timerDash = timerDashLimit;
+            Vector2 scale = gameObject.transform.localScale;
+            if (scale.x == 1)
+            {
+                rigid.AddForce(new Vector2(-5.5f, 0), ForceMode2D.Impulse);
+            }
+            else if (scale.x == -1)
+            {
+                rigid.AddForce(new Vector2(5.5f, 0), ForceMode2D.Impulse);
+            }
+        }
+        //timerDash = timerDashLimit;
+        //Vector2 scale = gameObject.transform.localScale;
+        //if (scale.x == 1)
+        //{
+        //    rigid.AddForce(new Vector2(-1.5f, 0), ForceMode2D.Impulse);
+        //}
+        //else if (scale.x == -1)
+        //{
+        //    rigid.AddForce(new Vector2(-1.5f, 0), ForceMode2D.Impulse);
+        //}
+    }
+
+    private void bossSmash()
+    {
+        if (enemyType != enumEnemyType.Boss) return;
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            moveSpeed = 0f;
+            anim.SetTrigger("Smash");
+            Invoke("reMove", 0.8f);
+        }
+            
+    }
+
+    private void checkDashTime()
+    {
+        if (timerDash > 0.0f)
+        {
+            timerDash -= Time.deltaTime;
+            if (timerDash < 0.0f)
+            {
+                timerDash = 0.0f;
+            }
         }
     }
 
@@ -252,6 +328,14 @@ public class Enemy : MonoBehaviour
             enemyBody.layer = LayerMask.NameToLayer("EnemyDeath");
             Destroy(gameObject, 0.8f);
         }
+
+        if (curHp <= 0 && enemyType == enumEnemyType.Boss)
+        {
+            anim.SetTrigger("Death4");
+            enemyBody.layer = LayerMask.NameToLayer("EnemyDeath");
+            Destroy(gameObject, 0.8f);
+        }
+
     }
 
     private void hitPosition()
@@ -272,6 +356,10 @@ public class Enemy : MonoBehaviour
             anim.SetTrigger("Hit3");
         }
 
+        if (enemyType == enumEnemyType.Boss)
+        {
+            anim.SetTrigger("Hit4");
+        }
         setHitPosition();
 
     }
@@ -311,6 +399,7 @@ public class Enemy : MonoBehaviour
             anim.SetTrigger("Attack");
             Invoke("reMove", 0.8f);
         }
+
     }
 
     private void reMove()

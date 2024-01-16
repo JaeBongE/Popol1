@@ -23,6 +23,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] Button exitButton;
     [Header("HowToPlay")]
     [SerializeField] GameObject howToPlay;
+    [Header("Victory")]
+    [SerializeField] GameObject victory;
 
     //public (Image _VcoolTime, Slider _PlayerHp, TMP_Text _VCoolTimeText) GetProperty()
     //{
@@ -63,5 +65,10 @@ public class PlayerUI : MonoBehaviour
     public GameObject getHowToPlay()
     {
         return howToPlay;
+    }
+
+    public GameObject getVictory()
+    {
+        return victory;
     }
 }
