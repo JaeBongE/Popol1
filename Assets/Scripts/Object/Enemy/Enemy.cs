@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -29,18 +30,27 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Collider2D attackHitBox;
     [SerializeField] Transform fireBallMPos;
     [SerializeField] GameObject fireBallM;
+    [SerializeField] Transform bossFirePos;
+    [SerializeField] Transform bossFirePos2;
+    [SerializeField] Transform bossFirePos3;
     private float fireTimer = 5.0f;
     private float fireLimitTimer = 5.0f;
     private bool shootFireM = false;
 
     private Slider bossHp;
-    private int pattern = 1;//현재 패턴
-    private int patternShootCount = 0;//현재 패턴을 몇 번 사용했는지
-    private float patternTimer = 0.0f;//패턴 리로드 용
-    private bool patternChange = false;//패턴을 교체해야 하는지
+    private float patternTimer = 5.0f;
+    private float pattenrLimitTime = 5.0f;
     private float timerDash = 0.0f;
     private float timerDashLimit = 0.5f;
 
+    private int curPatten = -1;
+
+    public enum bossPattern
+    {
+        Dash,
+        Smash,
+        Fire,
+    }
 
     public enum enumEnemyType
     {
@@ -64,15 +74,18 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         setBossHp();
+
         checkPlayer();
         checkTimer();
         checkDashTime();
+
         moving();
         checkDirection();
-        msTurning();
+
         msFire();
         msFireCoolTime();
-        bossPattern();
+
+        checkPattern();
     }
 
     private void setBossHp()
@@ -108,6 +121,7 @@ public class Enemy : MonoBehaviour
     private void FixedUpdate()
     {
         checkTurn();
+        msTurning();
     }
 
     private void checkTurn()
@@ -124,6 +138,7 @@ public class Enemy : MonoBehaviour
         {
             turning();
         }
+
     }
 
     /// <summary>
@@ -228,44 +243,66 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void bossPattern()
+    private void checkPattern()
     {
         if (enemyType != enumEnemyType.Boss) return;
 
-        patternTimer += Time.deltaTime;
 
-        if (patternChange == true)
+        //어떤 패턴을 사용할건지 결정
+        int beforePatten = curPatten;
+        while (beforePatten == curPatten)
         {
-            if (patternTimer >= 3.0f)
-            {
-                patternTimer = 0.0f;
-                patternChange = false;
-            }
-            return;
+            curPatten = Random.Range(0, System.Enum.GetValues(typeof(bossPattern)).Length);
         }
 
-        switch (pattern)
+        patternTimer -= Time.deltaTime;
+        if (patternTimer <= 0f)
         {
+            patternTimer = 0f;
+        }
 
+        switch ((bossPattern)curPatten)
+        {
+            case bossPattern.Dash:
+                if (patternTimer == 0f)
+                {
+                    bossDash();
+                    patternTimer = pattenrLimitTime;
+                }
+                break;
+
+            case bossPattern.Smash:
+                if (patternTimer == 0f)
+                {
+                    bossSmash();
+                    patternTimer = pattenrLimitTime;
+                }
+                break;
+
+            case bossPattern.Fire:
+                if (patternTimer == 0f)
+                {
+                    bossFire();
+                    patternTimer = pattenrLimitTime;
+                }
+                break;
         }
     }
 
     private void bossDash()
     {
-        if (enemyType != enumEnemyType.Boss) return;
-        if (Input.GetKeyDown(KeyCode.K))
+
+        timerDash = timerDashLimit;
+        Vector2 scale = gameObject.transform.localScale;
+        if (scale.x == 1)
         {
-            timerDash = timerDashLimit;
-            Vector2 scale = gameObject.transform.localScale;
-            if (scale.x == 1)
-            {
-                rigid.AddForce(new Vector2(-5.5f, 0), ForceMode2D.Impulse);
-            }
-            else if (scale.x == -1)
-            {
-                rigid.AddForce(new Vector2(5.5f, 0), ForceMode2D.Impulse);
-            }
+            rigid.AddForce(new Vector2(-5.5f, 0), ForceMode2D.Impulse);
         }
+        else if (scale.x == -1)
+        {
+            rigid.AddForce(new Vector2(5.5f, 0), ForceMode2D.Impulse);
+        }
+
         //timerDash = timerDashLimit;
         //Vector2 scale = gameObject.transform.localScale;
         //if (scale.x == 1)
@@ -280,25 +317,59 @@ public class Enemy : MonoBehaviour
 
     private void bossSmash()
     {
-        if (enemyType != enumEnemyType.Boss) return;
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            moveSpeed = 0f;
-            anim.SetTrigger("Smash");
-            Invoke("reMove", 0.8f);
-        }
-            
+        moveSpeed = 0f;
+        anim.SetTrigger("Smash");
+        Invoke("reMove", 0.8f);
+
     }
 
     private void bossFire()
     {
-        if (enemyType != enumEnemyType.Boss) return;
-        if (Input.GetKeyDown(KeyCode.K))
+        moveSpeed = 0f;
+        anim.SetTrigger("BossFire");
+        Invoke("shootBossFire", 0.5f);
+        Invoke("reMove", 0.8f);
+
+    }
+
+    private void bossTurn()
+    {
+        if (enemyType == enumEnemyType.Boss)
         {
-            moveSpeed = 0f;
-            anim.SetTrigger("BossFire");
-            Invoke("reMove", 0.8f);
+            Vector2 playerPosition = player.transform.position;
+            Vector2 position = gameObject.transform.position;
+            if (playerPosition.x >= position.x)
+            {
+                Invoke("bossTurnRught", 2f);
+            }
+            else if (playerPosition.x < position.x)
+            {
+                Invoke("bossTurnLeft", 2f);
+            }
         }
+    }
+
+    private void bossTurnRught()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = -1;
+        moveSpeed = -defaultSpeed;
+        transform.localScale = scale;
+    }
+    
+    private void bossTurnLeft()
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = 1;
+        moveSpeed = defaultSpeed;
+        transform.localScale = scale;
+    }
+
+    private void shootBossFire()
+    {
+        Instantiate(fireBallM, bossFirePos.position, Quaternion.identity);
+        Instantiate(fireBallM, bossFirePos2.position, Quaternion.identity);
+        Instantiate(fireBallM, bossFirePos3.position, Quaternion.identity);
     }
 
     private void checkDashTime()
