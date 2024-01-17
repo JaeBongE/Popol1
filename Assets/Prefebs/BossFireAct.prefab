@@ -33,7 +33,7 @@ Transform:
   m_Children:
   - {fileID: 8347219873126285861}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &4576354811907554289
 SpriteRenderer:
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 5262136032568106424}
   m_Layer: 7
   m_Name: GameObject
-  m_TagString: Enemy
+  m_TagString: EnemyOj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -30,9 +30,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Collider2D attackHitBox;
     [SerializeField] Transform fireBallMPos;
     [SerializeField] GameObject fireBallM;
-    [SerializeField] Transform bossFirePos;
+    [SerializeField] Transform bossFirePos1;
     [SerializeField] Transform bossFirePos2;
     [SerializeField] Transform bossFirePos3;
+    [SerializeField] Transform bossFirePos4;
+    [SerializeField] Transform bossFirePos5;
+    [SerializeField] Transform bossFirePos6;
     private float fireTimer = 5.0f;
     private float fireLimitTimer = 5.0f;
     private bool shootFireM = false;
@@ -50,6 +53,7 @@ public class Enemy : MonoBehaviour
         Dash,
         Smash,
         Fire,
+        Stop,
     }
 
     public enum enumEnemyType
@@ -153,7 +157,27 @@ public class Enemy : MonoBehaviour
         rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
         if (enemyType == enumEnemyType.Boss)
         {
-            rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
+            if (curHp > maxHp/2)
+            {
+                rigid.velocity = new Vector2(-moveSpeed, rigid.velocity.y);
+            }
+            else if(curHp <= maxHp/2)
+            {
+                rigid.velocity = new Vector2(-moveSpeed * 2f, rigid.velocity.y);
+                //Vector2 scale = gameObject.transform.localScale;
+                //if (scale.x == 1)
+                //{
+                //    rigid.velocity = new Vector2(moveSpeed * 2f, rigid.velocity.y);
+                //}
+                //else if (scale.x == -1)
+                //{
+                //    rigid.velocity = new Vector2(-moveSpeed * 2f, rigid.velocity.y);
+                //}
+            }
+        }
+        if (curHp <= 0f)
+        {
+            rigid.velocity = Vector2.zero;
         }
     }
 
@@ -246,8 +270,7 @@ public class Enemy : MonoBehaviour
     private void checkPattern()
     {
         if (enemyType != enumEnemyType.Boss) return;
-
-
+        
         //어떤 패턴을 사용할건지 결정
         int beforePatten = curPatten;
         while (beforePatten == curPatten)
@@ -283,6 +306,13 @@ public class Enemy : MonoBehaviour
                 if (patternTimer == 0f)
                 {
                     bossFire();
+                    patternTimer = pattenrLimitTime;
+                }
+                break;
+            case bossPattern.Stop:
+                if (patternTimer == 0f)
+                {
+                    bossStop();
                     patternTimer = pattenrLimitTime;
                 }
                 break;
@@ -332,46 +362,23 @@ public class Enemy : MonoBehaviour
 
     }
 
-    private void bossTurn()
-    {
-        if (enemyType == enumEnemyType.Boss)
-        {
-            Vector2 playerPosition = player.transform.position;
-            Vector2 position = gameObject.transform.position;
-            if (playerPosition.x >= position.x)
-            {
-                Invoke("bossTurnRught", 2f);
-            }
-            else if (playerPosition.x < position.x)
-            {
-                Invoke("bossTurnLeft", 2f);
-            }
-        }
-    }
-
-    private void bossTurnRught()
-    {
-        Vector3 scale = transform.localScale;
-        scale.x = -1;
-        moveSpeed = -defaultSpeed;
-        transform.localScale = scale;
-    }
-    
-    private void bossTurnLeft()
-    {
-        Vector3 scale = transform.localScale;
-        scale.x = 1;
-        moveSpeed = defaultSpeed;
-        transform.localScale = scale;
-    }
 
     private void shootBossFire()
     {
-        Instantiate(fireBallM, bossFirePos.position, Quaternion.identity);
+        Instantiate(fireBallM, bossFirePos1.position, Quaternion.identity);
         Instantiate(fireBallM, bossFirePos2.position, Quaternion.identity);
         Instantiate(fireBallM, bossFirePos3.position, Quaternion.identity);
+        Instantiate(fireBallM, bossFirePos4.position, Quaternion.identity);
+        Instantiate(fireBallM, bossFirePos5.position, Quaternion.identity);
+        Instantiate(fireBallM, bossFirePos6.position, Quaternion.identity);
     }
 
+    private void bossStop()
+    {
+        moveSpeed = 0f;
+        anim.SetTrigger("Stop");
+        Invoke("reMove", 2f);
+    }
     private void checkDashTime()
     {
         if (timerDash > 0.0f)

@@ -12,6 +12,14 @@ public class BodyHitBox : MonoBehaviour
            // Enemy enemy = collision.GetComponentInParent<Enemy>();
             playerSc.onDamaged(collision.transform.root.position);
             playerSc.Hit(1.0f);
+        } 
+        
+        if (collision.gameObject.tag == GameTag.EnemyOj.ToString())
+        {
+            Player playerSc = GetComponentInParent<Player>();
+           // Enemy enemy = collision.GetComponentInParent<Enemy>();
+            playerSc.onDamaged(collision.transform.root.position);
+            playerSc.Hit(1.0f);
         }
 
         //if (Input.GetKeyDown(KeyCode.UpArrow) && collision.gameObject.tag == GameTag.Potal.ToString())

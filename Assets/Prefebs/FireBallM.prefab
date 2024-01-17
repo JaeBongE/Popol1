@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5559989722330856574}
   m_Layer: 14
   m_Name: FireBallM
-  m_TagString: Enemy
+  m_TagString: EnemyOj
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
