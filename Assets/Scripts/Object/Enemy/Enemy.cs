@@ -209,7 +209,7 @@ public class Enemy : MonoBehaviour
 
     private void msTurning()
     {
-        if (enemyType == enumEnemyType.Mushroom)
+        if (enemyType == enumEnemyType.Mushroom && player != null)
         {
             Vector3 scale = transform.localScale;
             Vector2 playerPosition = player.transform.position;

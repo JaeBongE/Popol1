@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using static GameManager;
+using System.Security;
 
 public class Player : MonoBehaviour
 {
@@ -171,7 +172,7 @@ public class Player : MonoBehaviour
 
         //}
     }
-    
+
     /// <summary>
     /// 플레이어가 보는 방향을 체크하는 함수
     /// </summary>
@@ -298,7 +299,12 @@ public class Player : MonoBehaviour
         }
         else//땅에 붙어 있을 때
         {
-            verticalVelocity = 0.0f;//수직으로 받는 힘은 0이 된다.
+            //verticalVelocity = 0.0f;//수직으로 받는 힘은 0이 된다.
+            verticalVelocity += Time.deltaTime * 15f;
+            if(verticalVelocity > 0)
+            {
+                verticalVelocity = 0;
+            }
         }
 
         if (isJump == true)//점프가 활성화 되었을 때
