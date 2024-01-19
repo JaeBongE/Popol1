@@ -133,7 +133,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (13)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -561,7 +561,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (15)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -1311,7 +1311,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (12)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -16571,7 +16571,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (14)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
