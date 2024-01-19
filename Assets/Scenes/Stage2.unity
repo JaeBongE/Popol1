@@ -372,7 +372,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (11)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -481,7 +481,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496464430824857151, guid: a32da2f0ef4644d4096eb43cc612f200, type: 3}
       propertyPath: m_Name
-      value: Skeleton (4)
+      value: Skeleton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -853,7 +853,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496464430824857151, guid: a32da2f0ef4644d4096eb43cc612f200, type: 3}
       propertyPath: m_Name
-      value: Skeleton (2)
+      value: Skeleton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -914,7 +914,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496464430824857151, guid: a32da2f0ef4644d4096eb43cc612f200, type: 3}
       propertyPath: m_Name
-      value: Skeleton (5)
+      value: Skeleton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -996,7 +996,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (1)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 4339466337788613544, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_RootOrder
@@ -1057,7 +1057,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (2)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -1995,7 +1995,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (4)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -2060,7 +2060,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (10)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -2186,7 +2186,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (5)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -2251,7 +2251,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (8)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -2377,7 +2377,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (7)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -16014,7 +16014,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (9)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -16286,7 +16286,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (3)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -16445,7 +16445,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (6)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -16554,7 +16554,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496464430824857151, guid: a32da2f0ef4644d4096eb43cc612f200, type: 3}
       propertyPath: m_Name
-      value: Skeleton (3)
+      value: Skeleton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16680,7 +16680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496464430824857151, guid: a32da2f0ef4644d4096eb43cc612f200, type: 3}
       propertyPath: m_Name
-      value: Skeleton (6)
+      value: Skeleton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
