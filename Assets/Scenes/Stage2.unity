@@ -670,7 +670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (6)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1166,7 +1166,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (4)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1294,7 +1294,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7496464430824857151, guid: a32da2f0ef4644d4096eb43cc612f200, type: 3}
       propertyPath: m_Name
-      value: Skeleton (1)
+      value: Skeleton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1420,7 +1420,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (2)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1978,7 +1978,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (3)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2169,7 +2169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (1)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2360,7 +2360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (5)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15961,11 +15961,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4732780506160129136, guid: fb4d3fa0c9b19a14991fdbf081ca42a6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 59.52
+      value: -12.2
       objectReference: {fileID: 0}
     - target: {fileID: 4732780506160129136, guid: fb4d3fa0c9b19a14991fdbf081ca42a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.26
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 4732780506160129136, guid: fb4d3fa0c9b19a14991fdbf081ca42a6, type: 3}
       propertyPath: m_LocalPosition.z

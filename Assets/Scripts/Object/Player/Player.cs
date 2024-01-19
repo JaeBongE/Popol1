@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
     private bool isPlayerLookAtRight = false;
     [SerializeField] GameObject bodyHitBox;
 
+
     [Header("มกวม")]
     [SerializeField] float gravity = 9.81f;
     [SerializeField] bool isGround = false;
@@ -60,8 +61,7 @@ public class Player : MonoBehaviour
     private float timerHit = 0.0f;
     private float timerHitLimit = 0.5f;
 
-
-
+    
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
     //    if (collision.gameObject.tag == GameTag.Potal.ToString())

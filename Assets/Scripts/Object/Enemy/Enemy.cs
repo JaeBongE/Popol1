@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     private float timerHit = 0.0f;
     private float timerHitLimit = 0.5f;
     [SerializeField] GameObject enemyBody;
+    [SerializeField] GameObject enemyUI;
 
     [Header("≈œ ±‚¥…")]
     [SerializeField] private LayerMask ground;
@@ -48,6 +49,8 @@ public class Enemy : MonoBehaviour
 
     private int curPatten = -1;
 
+
+
     public enum bossPattern
     {
         Dash,
@@ -64,6 +67,7 @@ public class Enemy : MonoBehaviour
         Mushroom,
         Boss,
     }
+
     public enumEnemyType enemyType;
 
     void Awake()
@@ -72,8 +76,8 @@ public class Enemy : MonoBehaviour
         curHp = maxHp;
         anim = GetComponent<Animator>();
         defaultSpeed = moveSpeed;
-
     }
+
 
     void Update()
     {
@@ -89,6 +93,7 @@ public class Enemy : MonoBehaviour
         msFire();
         msFireCoolTime();
 
+        reTurnHp();
         checkPattern();
     }
 
@@ -511,5 +516,13 @@ public class Enemy : MonoBehaviour
     public void DisableAttack()
     {
         attackHitBox.enabled = false;
+    }
+
+    private void reTurnHp()
+    {
+        if (enemyType == enumEnemyType.Boss) return;
+        if (enemyType == enumEnemyType.Obstacle) return;
+        EnemyUI scEnemyUI = GetComponentInChildren<EnemyUI>();
+        scEnemyUI.SetEnemyHp(curHp,maxHp);
     }
 }

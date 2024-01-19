@@ -194,7 +194,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (18)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -259,7 +259,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (9)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -368,7 +368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (1)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -385,7 +385,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (4)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -450,7 +450,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (11)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -515,7 +515,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (14)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -580,7 +580,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (5)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -645,7 +645,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (13)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -710,7 +710,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (8)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -831,7 +831,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (2)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -853,7 +853,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (3)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -918,7 +918,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (10)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -1309,7 +1309,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (7)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -1430,7 +1430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (3)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1447,7 +1447,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (6)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -1512,7 +1512,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (1)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -1577,7 +1577,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (15)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -1642,7 +1642,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (12)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -7772,7 +7772,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (2)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -7837,7 +7837,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (16)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
@@ -7958,7 +7958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (5)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8031,7 +8031,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5945155475630620044, guid: afe5753087dae8c4c9f888d5a9f64f3e, type: 3}
       propertyPath: m_Name
-      value: Flying Eye (4)
+      value: Flying Eye
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8048,7 +8048,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1942772735585797355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_Name
-      value: Obstacle (17)
+      value: Obstacle
       objectReference: {fileID: 0}
     - target: {fileID: 3284334012432570355, guid: 6be1620d044df6943b9d92231c33537c, type: 3}
       propertyPath: m_SortingOrder
