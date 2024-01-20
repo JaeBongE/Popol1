@@ -6,7 +6,6 @@ using UnityEngine;
 public class Elevator2 : MonoBehaviour
 {
     [SerializeField] private float speed = 3.0f;
-    [SerializeField] private LayerMask ground;
     Vector3 dir = Vector3.left;
     Vector3 dir2 = Vector3.up;
     GameObject player;

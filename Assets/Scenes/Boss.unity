@@ -536,6 +536,7 @@ MonoBehaviour:
   maxHp: 30
   moveSpeed: 3
   enemyBody: {fileID: 217028060}
+  enemyUI: {fileID: 0}
   ground:
     serializedVersion: 2
     m_Bits: 64
@@ -1155,6 +1156,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 738999140584676060, guid: 5ca9395bb7981cf46996438ce7d5cf40, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1573934381885524185, guid: 5ca9395bb7981cf46996438ce7d5cf40, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1245,6 +1250,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2197281869024333485, guid: 5ca9395bb7981cf46996438ce7d5cf40, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2694286192045929787, guid: 5ca9395bb7981cf46996438ce7d5cf40, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
