@@ -116,6 +116,9 @@ public class Player : MonoBehaviour
         doAnimation();
     }
 
+    /// <summary>
+    /// 플레이어 UI의 정보를 가져오는 함수
+    /// </summary>
     private void checkPlayerUI()
     {
         if (playerHp == null)//UI에서 데이터를 가져 오는 조건
@@ -200,7 +203,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        RaycastHit2D hit = Physics2D.BoxCast(polygonColider2D.bounds.center, polygonColider2D.bounds.size, 0, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
+        RaycastHit2D hit = Physics2D.BoxCast(polygonColider2D.bounds.center, polygonColider2D.bounds.size, 0, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));//박스 콜라이더 밑으로 선을 만들어 땅을 체크함
         if (hit.transform != null && hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
         {
             //Debug.Log(hit.transform.gameObject.name);
@@ -300,7 +303,7 @@ public class Player : MonoBehaviour
         else//땅에 붙어 있을 때
         {
             //verticalVelocity = 0.0f;//수직으로 받는 힘은 0이 된다.
-            verticalVelocity += Time.deltaTime * 15f;
+            verticalVelocity += Time.deltaTime * 15f;//수직으로 받는 힘을 다시 회복함
             if(verticalVelocity > 0)
             {
                 verticalVelocity = 0;
@@ -335,6 +338,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// v를 눌렀을 때 힐을 한다
+    /// </summary>
     private void heal()
     {
         if (curHp == maxHp) return;
@@ -359,6 +365,9 @@ public class Player : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// 힐 쿨타임을 체크 하는 함수
+    /// </summary>
     private void healTimer()
     {
         if (isVcoolTime == true && VskillCoolTime > 0f)
@@ -376,12 +385,15 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// x를 눌렀을 때, 대쉬를 하는 함수
+    /// </summary>
     private void dash()
     {
         if (Input.GetKeyDown(KeyCode.X) && isXcoolTime == false)
         {
             isXcoolTime = true;
-            timerDash = timerDashLimit;
+            timerDash = timerDashLimit;//대쉬를 했을 때 velocitiy가 다른 함수에 적용되지 않게 하기 위함
             rigid.velocity = Vector2.zero;
             verticalVelocity = 0.0f;
             invincibility();
@@ -402,12 +414,18 @@ public class Player : MonoBehaviour
             XskillCoolTime = XskillCoolTimer;
         }
     }
+    /// <summary>
+    /// 무적이 되는 함수
+    /// </summary>
     private void invincibility()
     {
-        gameObject.layer = LayerMask.NameToLayer("PlayerDash");
+        gameObject.layer = LayerMask.NameToLayer("PlayerDash");//플레이어의 레이어를 변경 해 무적을 표현 함
         bodyHitBox.layer = LayerMask.NameToLayer("PlayerDash");
-        spr.color = new Color(1, 1, 1, 0.4f);
+        spr.color = new Color(1, 1, 1, 0.4f);//무적시 투명 연출
     }
+    /// <summary>
+    /// 무적 해제
+    /// </summary>
     private void uninvincibility()
     {
         gameObject.layer = LayerMask.NameToLayer("Player");
@@ -415,6 +433,9 @@ public class Player : MonoBehaviour
         spr.color = new Color(1, 1, 1, 1);
     }
 
+    /// <summary>
+    /// 대쉬 쿨타임을 나타내는 함수
+    /// </summary>
     private void dashTimer()
     {
         if (isXcoolTime == true && XskillCoolTimer > 0f)
@@ -431,6 +452,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// c를 눌렀을 때 파이어볼이 나감
+    /// </summary>
     private void fire()
     {
         if (Input.GetKeyDown(KeyCode.C) && isCcoolTime == false)
@@ -446,14 +470,17 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 파이어볼이 생성되는 함수
+    /// </summary>
     private void createFire()
     {
         Vector2 playerSc = gameObject.transform.localScale;
-        if (playerSc.x >= 0)
+        if (playerSc.x >= 0)//플레이어가 왼쪽을 본다면
         {
-            GameObject obj = Instantiate(fireBall, FireBallPos.position, Quaternion.Euler(0, 0, 90f));
+            GameObject obj = Instantiate(fireBall, FireBallPos.position, Quaternion.Euler(0, 0, 90f));//각도 조절
             FireBall scFireBall = obj.GetComponent<FireBall>();
-            scFireBall.SetFire(true);
+            scFireBall.SetFire(true);//플레이어가 쏜 파이어볼인지 확인하는 함수
         }
         else if (playerSc.x < 0)
         {
@@ -463,6 +490,9 @@ public class Player : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 파이어볼 쿨타임 함수
+    /// </summary>
     private void fireTimer()
     {
         if (isCcoolTime == true && CskillCoolTimer > 0f)

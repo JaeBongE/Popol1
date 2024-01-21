@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using static GameManager;
+using UnityEditor.SearchService;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
         Boss,
     }
 
+    [SerializeField] GameManager.enumScene toScene;
     GameObject gameOverMenu;
     Button retryButton;
     Button exitButton;
@@ -30,6 +32,7 @@ public class GameManager : MonoBehaviour
     Slider bossHp;
     GameObject vicTory;
     [SerializeField] GameObject bossUI;
+
 
     private void Awake()
     {
@@ -89,7 +92,8 @@ public class GameManager : MonoBehaviour
             gameOverMenu.SetActive(false);
             retryButton.onClick.AddListener(() =>
             {
-                SceneManager.LoadSceneAsync((int)enumScene.Stage1);
+                int nextStage = (int)toScene;
+                SceneManager.LoadSceneAsync(nextStage);
                 Time.timeScale = 1f;
             });
             exitButton.onClick.AddListener(() =>

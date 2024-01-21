@@ -37,8 +37,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] Transform bossFirePos4;
     [SerializeField] Transform bossFirePos5;
     [SerializeField] Transform bossFirePos6;
-    private float fireTimer = 5.0f;
-    private float fireLimitTimer = 5.0f;
+    private float fireTimer = 4.0f;
+    private float fireLimitTimer = 4.0f;
     private bool shootFireM = false;
 
     private Slider bossHp;
@@ -97,6 +97,9 @@ public class Enemy : MonoBehaviour
         checkPattern();
     }
 
+    /// <summary>
+    /// 보스 HP를 UI에 나타내는 함수
+    /// </summary>
     private void setBossHp()
     {
         if (bossHp == null && enemyType == enumEnemyType.Boss)
@@ -118,6 +121,9 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 적이 플레이어 존재를 체크하는 함수
+    /// </summary>
     private void checkPlayer()
     {
         if (player == null)
@@ -133,6 +139,9 @@ public class Enemy : MonoBehaviour
         msTurning();
     }
 
+    /// <summary>
+    /// 적이 턴을 하는 조건
+    /// </summary>
     private void checkTurn()
     {
         if (enemyType == enumEnemyType.Obstacle) return;
@@ -158,7 +167,7 @@ public class Enemy : MonoBehaviour
         if (timerHit > 0.0f) return;
         if (enemyType == enumEnemyType.Obstacle) return;
         if (enemyType == enumEnemyType.Mushroom) return;
-        if (timerDash > 0.0f && enemyType == enumEnemyType.Boss) return;
+        if (timerDash > 0.0f && enemyType == enumEnemyType.Boss) return;//보스가 대쉬 했을 때 리턴
         rigid.velocity = new Vector2(moveSpeed, rigid.velocity.y);
         if (enemyType == enumEnemyType.Boss)
         {
