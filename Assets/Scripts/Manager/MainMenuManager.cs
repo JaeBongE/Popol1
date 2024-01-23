@@ -11,16 +11,23 @@ public class NewBehaviourScript : MonoBehaviour
     [SerializeField] Button quitButton;
     [SerializeField] GameObject howToPlayMenu;
     [SerializeField] Button exitHowToPlay;
+    NextSceneClass nextSceneClass;
     
     void Awake()
     {
+        Time.timeScale = 1f;
         mainMenu();
     }
 
+    private void Start()
+    {
+        nextSceneClass = NextSceneClass.Instance;
+    }
     private void mainMenu()
     {
         startButton.onClick.AddListener(() =>
         {
+            nextSceneClass.setCurHp(10f);
             SceneManager.LoadSceneAsync(1);
         });
 

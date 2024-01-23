@@ -10,6 +10,7 @@ using System.Security;
 public class Player : MonoBehaviour
 {
     private Camera mainCam;
+    NextSceneClass nextSceneClass;
 
     [Header("플레이어 데이터")]
     Rigidbody2D rigid;
@@ -84,6 +85,8 @@ public class Player : MonoBehaviour
         mainCam = Camera.main;
         enemy = GetComponent<Enemy>();
         //zCoolTime.enabled = false;
+        nextSceneClass = NextSceneClass.Instance;
+        curHp = nextSceneClass.getCurHp();
     }
 
     void Update()
@@ -142,6 +145,7 @@ public class Player : MonoBehaviour
             //playerHp = data._PlayerHp;
             //vCoolTime = data._VcoolTime;
             //vCoolTimeText = data._VCoolTimeText;
+            playerHp.value = curHp;
             playerHp.maxValue = maxHp;
             vCoolTime.fillAmount = 0f;
 
@@ -517,6 +521,7 @@ public class Player : MonoBehaviour
         anim.SetBool("isGround", isGround);//땅에 닿았는지 체크해서 닿지 않으면 점프 애니메이션
     }
 
+
     /// <summary>
     /// _pos의 적이 닿았다면 player가 뒤로 날아가며 애니메이션이 작동함
     /// </summary>
@@ -554,6 +559,7 @@ public class Player : MonoBehaviour
         playerHp.value = curHp;
         if (curHp <= 0)//플레이어가 죽는 경우
         {
+            curHp = 0f;
             Debug.Log("플레이어가 죽었습니다");
             anim.SetTrigger("isPlayerDeath");//플레이어 사망 애니메이션 
             //GameManager.Instance.GameOver();//게임오버 메뉴가 나온다
@@ -587,5 +593,5 @@ public class Player : MonoBehaviour
     //    int nextStage = (int)_scene;
     //    SceneManager.LoadSceneAsync(nextStage);
     //}
-
+    
 }

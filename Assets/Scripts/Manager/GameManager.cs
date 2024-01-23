@@ -6,11 +6,11 @@ using UnityEngine.UI;
 using TMPro;
 using static GameManager;
 using UnityEditor.SearchService;
+using System.Xml.Serialization;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    private float curPlayerHP;
 
     public enum enumScene
     {
@@ -45,7 +45,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this);
 
-            DontDestroyOnLoad(gameObject);
         }
         //        gameOverMenu.SetActive(false);
         //        retryButton.onClick.AddListener(() =>
@@ -101,11 +100,12 @@ public class GameManager : MonoBehaviour
             });
             exitButton.onClick.AddListener(() =>
             {
-#if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+                SceneManager.LoadSceneAsync(0);
+                //#if UNITY_EDITOR
+                //                UnityEditor.EditorApplication.isPlaying = false;
+                //#else
+                //            Application.Quit();
+                //#endif
             });
 
         }
@@ -165,6 +165,8 @@ public class GameManager : MonoBehaviour
         int nextStage = (int)_scene;
         SceneManager.LoadSceneAsync(nextStage);
     }
+
 }
+
 
 
