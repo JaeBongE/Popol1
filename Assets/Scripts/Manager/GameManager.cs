@@ -10,6 +10,7 @@ using UnityEditor.SearchService;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
+    private float curPlayerHP;
 
     public enum enumScene
     {
@@ -43,6 +44,8 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(this);
+
+            DontDestroyOnLoad(gameObject);
         }
         //        gameOverMenu.SetActive(false);
         //        retryButton.onClick.AddListener(() =>
@@ -163,4 +166,5 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync(nextStage);
     }
 }
+
 

@@ -77,7 +77,6 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
         spr = GetComponent<SpriteRenderer>();
         curHp = maxHp;
-
     }
 
     private void Start()
@@ -588,6 +587,5 @@ public class Player : MonoBehaviour
     //    int nextStage = (int)_scene;
     //    SceneManager.LoadSceneAsync(nextStage);
     //}
-
 
 }

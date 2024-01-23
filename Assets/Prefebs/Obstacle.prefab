@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3284334012432570355
 SpriteRenderer:
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: 2619d8d2089663a478ac3035deedf2d3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -101,6 +101,7 @@ MonoBehaviour:
   maxHp: 3
   moveSpeed: 1
   enemyBody: {fileID: 0}
+  enemyUI: {fileID: 0}
   ground:
     serializedVersion: 2
     m_Bits: 0
@@ -109,6 +110,12 @@ MonoBehaviour:
   attackHitBox: {fileID: 0}
   fireBallMPos: {fileID: 0}
   fireBallM: {fileID: 0}
+  bossFirePos1: {fileID: 0}
+  bossFirePos2: {fileID: 0}
+  bossFirePos3: {fileID: 0}
+  bossFirePos4: {fileID: 0}
+  bossFirePos5: {fileID: 0}
+  bossFirePos6: {fileID: 0}
   enemyType: 2
 --- !u!61 &5641507126474466418
 BoxCollider2D:
