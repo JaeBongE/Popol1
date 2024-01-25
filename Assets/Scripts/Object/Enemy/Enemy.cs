@@ -14,7 +14,6 @@ public class Enemy : MonoBehaviour
     private float defaultSpeed;
     private Rigidbody2D rigid;
     Animator anim;
-    private bool isPlayerLookAtRight = false;
     private float timerHit = 0.0f;
     private float timerHitLimit = 0.5f;
     [SerializeField] GameObject enemyBody;
@@ -88,7 +87,6 @@ public class Enemy : MonoBehaviour
         checkDashTime();
 
         moving();
-        checkDirection();
 
         msFire();
         msFireCoolTime();
@@ -96,6 +94,7 @@ public class Enemy : MonoBehaviour
         reTurnHp();
         checkPattern();
     }
+
 
     /// <summary>
     /// 보스 HP를 UI에 나타내는 함수
@@ -192,19 +191,6 @@ public class Enemy : MonoBehaviour
         if (curHp <= 0f)
         {
             rigid.velocity = Vector2.zero;
-        }
-    }
-
-    private void checkDirection()
-    {
-        if (enemyType == enumEnemyType.Obstacle) return;
-        if (player.transform.localScale.x >= 1)
-        {
-            isPlayerLookAtRight = true;
-        }
-        else if (player.transform.localScale.x <= -1)
-        {
-            isPlayerLookAtRight = false;
         }
     }
 
@@ -471,11 +457,13 @@ public class Enemy : MonoBehaviour
         if (enemyType == enumEnemyType.Mushroom) return;
         if (enemyType == enumEnemyType.Boss) return;
         timerHit = timerHitLimit;
-        if (isPlayerLookAtRight == true)
+        Vector2 trsPlayer = player.transform.position;
+        Vector2 enemyPos = gameObject.transform.position;
+        if (trsPlayer.x <= enemyPos.x)
         {
             rigid.AddForce(new Vector2(1.5f, 2), ForceMode2D.Impulse);
         }
-        else
+        else if (trsPlayer.x > enemyPos.x)
         {
             rigid.AddForce(new Vector2(-1.5f, 2), ForceMode2D.Impulse);
         }
@@ -495,6 +483,7 @@ public class Enemy : MonoBehaviour
 
     public void Attack()
     {
+        if (timerHit > 0.0f) return;
         if (enemyType == enumEnemyType.Skeleton)
         {
             moveSpeed = 0f;
@@ -534,4 +523,6 @@ public class Enemy : MonoBehaviour
         EnemyUI scEnemyUI = GetComponentInChildren<EnemyUI>();
         scEnemyUI.SetEnemyHp(curHp,maxHp);
     }
+
+    //부모의 기능을 쓰고 싶을 때 부모의 변수는 protect, 함수는 vertual로 선언 후 자식은 override후 base.으로 실행 가능
 }
