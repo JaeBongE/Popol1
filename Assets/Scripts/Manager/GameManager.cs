@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using static GameManager;
-using UnityEditor.SearchService;
-using System.Xml.Serialization;
 
 public class GameManager : MonoBehaviour
 {
